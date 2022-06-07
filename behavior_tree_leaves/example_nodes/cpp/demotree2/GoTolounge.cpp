@@ -65,11 +65,20 @@ public:
         move_base_goal.target_pose.header.frame_id = "map";
         move_base_goal.target_pose.header.stamp = ros::Time::now();
 
-        move_base_goal.target_pose.pose.position.x = 3.02;
-        move_base_goal.target_pose.pose.position.y = 6.22;
+        //Coordinates for both Simulation and Actual Map added. Later on this will be added 
+        //to the yaml file in next versions after testing on actual robot//
+        //For Simulation//
+        // move_base_goal.target_pose.pose.position.x = 3.02;
+        // move_base_goal.target_pose.pose.position.y = 6.22;
+        // move_base_goal.target_pose.pose.position.z = 0.0;
+        // move_base_goal.target_pose.pose.orientation.w = 1.0;
+
+        //For actual Robot//
+        move_base_goal.target_pose.pose.position.x = -3.73;
+        move_base_goal.target_pose.pose.position.y = -0.03;
         move_base_goal.target_pose.pose.position.z = 0.0;
         move_base_goal.target_pose.pose.orientation.w = 1.0;
-
+        
         ROS_INFO("**Sending New goal");
         ac.sendGoal(move_base_goal);
 
