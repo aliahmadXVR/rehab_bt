@@ -81,7 +81,7 @@ public:
         
         ROS_INFO("**Sending New goal");
         ac.sendGoal(move_base_goal);
-
+        ac.waitForResult(); 
         set_status(SUCCESS);
 
     }
