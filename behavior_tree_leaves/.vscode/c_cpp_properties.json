@@ -1,0 +1,30 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/ali-ahmed/catkin_ws/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/ali-ahmed/catkin_ws/src/ROS-Behavior-Tree/behavior_tree_core/include/**",
+        "/home/ali-ahmed/catkin_ws/src/BehaviorTree.CPP/include/**",
+        "/home/ali-ahmed/catkin_ws/src/gazebo_ros_pkgs/gazebo_plugins/include/**",
+        "/home/ali-ahmed/catkin_ws/src/gazebo_ros_pkgs/gazebo_ros/include/**",
+        "/home/ali-ahmed/catkin_ws/src/gazebo_ros_pkgs/gazebo_ros_control/include/**",
+        "/home/ali-ahmed/catkin_ws/src/key_pub/include/**",
+        "/home/ali-ahmed/catkin_ws/src/simple_pack/include/**",
+        "/home/ali-ahmed/catkin_ws/src/turtlebot3_simulations/turtlebot3_fake/include/**",
+        "/home/ali-ahmed/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

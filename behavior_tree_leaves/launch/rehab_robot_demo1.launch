@@ -1,0 +1,18 @@
+<launch>
+
+<node name="Navi_H"           pkg="behavior_tree_leaves"  type="Navi_H"            output="screen" />
+<node name="BatteryOK"        pkg="behavior_tree_leaves"  type="BatteryOK"         output="screen" /> 
+<node name="forward"          pkg="behavior_tree_leaves"  type="forward"           output="screen" /> 
+<node name="reverse"          pkg="behavior_tree_leaves"  type="reverse"           output="screen" /> 
+<node name="stop"             pkg="behavior_tree_leaves"  type="stop"              output="screen" /> 
+<node name="noforward_key"    pkg="behavior_tree_leaves"  type="noforward_key"     output="screen" /> 
+<node name="noreverse_key"    pkg="behavior_tree_leaves"  type="noreverse_key"     output="screen" /> 
+<node name="nokey_press"      pkg="behavior_tree_leaves"  type="nokey_press"       output="screen" /> 
+<node name="get_key"          pkg="behavior_tree_leaves"  type="get_key"           output="screen" /> 
+<node name="no_stop_key"      pkg="behavior_tree_leaves"  type="stop_key"          output="screen" /> 
+
+  
+</launch>
+
+<!-- Use this command for seperate window-->
+<!--launch-prefix="xterm -e"--> 
