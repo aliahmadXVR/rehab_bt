@@ -43,6 +43,14 @@ public:
     action_name_(name)
     {
         as_.start ();
+
+        //Update the Location Designator//
+        nh_.getParam("/lounge/x",move_base_goal.target_pose.pose.position.x);
+        nh_.getParam("/lounge/y",move_base_goal.target_pose.pose.position.y);
+
+        //For now fixing the z and the heading//
+        move_base_goal.target_pose.pose.position.z = 0.0;
+        move_base_goal.target_pose.pose.orientation.w = 1.0;
     }
 
     ~BTAction(void)
@@ -65,19 +73,8 @@ public:
         move_base_goal.target_pose.header.frame_id = "map";
         move_base_goal.target_pose.header.stamp = ros::Time::now();
 
-        //Coordinates for both Simulation and Actual Map added. Later on this will be added 
-        //to the yaml file in next versions after testing on actual robot//
-        //For Simulation//
-        // move_base_goal.target_pose.pose.position.x = 3.02;
-        // move_base_goal.target_pose.pose.position.y = 6.22;
-        // move_base_goal.target_pose.pose.position.z = 0.0;
-        // move_base_goal.target_pose.pose.orientation.w = 1.0;
-
-        //For actual Robot//
-        move_base_goal.target_pose.pose.position.x = -3.73;
-        move_base_goal.target_pose.pose.position.y = -0.03;
-        move_base_goal.target_pose.pose.position.z = 0.0;
-        move_base_goal.target_pose.pose.orientation.w = 1.0;
+        std::cout<<"X ------------------" << move_base_goal.target_pose.pose.position.x<<std::endl;
+        std::cout<<"Y ------------------" << move_base_goal.target_pose.pose.position.y<<std::endl;
         
         ROS_INFO("**Sending New goal");
         ac.sendGoal(move_base_goal);
