@@ -17,12 +17,22 @@
 
 
 
-void Execute(BT::ControlNode* root, int TickPeriod_milliseconds)
+void Execute(BT::ControlNode* root, int TickPeriod_milliseconds,ros::NodeHandle *n)
 {
+    bool using_sim_flag;
+
     std::cout << "Start Drawing!" << std::endl;
-    // Starts in another thread the drawing of the BT
-    std::thread t2(&drawTree, root);
-    t2.detach();
+    
+    n->getParam("/using_sim",using_sim_flag);
+    // std::cout<<"Flag Value (Debug Purpose): "<<using_sim_flag<<std::endl;
+    
+    if(using_sim_flag == 1) //only draw visualiztion of tree in case Simulation is being done
+    {
+        // Starts in another thread the drawing of the BT
+        std::thread t2(&drawTree, root);
+        t2.detach();
+    }
+
     BT::DotBt dotbt(root);
     std::thread t(&BT::DotBt::publish, dotbt);
 

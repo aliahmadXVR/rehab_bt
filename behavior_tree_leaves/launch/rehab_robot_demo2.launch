@@ -1,18 +1,36 @@
 <launch>
 
+<arg name="using_sim" default="true" />
+
+<!-- In Case of simulation, the Xterm windows will open for each node for debug purpose -->
+<group if="$(eval arg('using_sim') == true)">
+
+<rosparam param="using_sim">true</rosparam>
+
 <node name="kitCmd"           pkg="behavior_tree_leaves"  type="kitCmd"               output="screen" />
 <node name="loungeCmd"        pkg="behavior_tree_leaves"  type="loungeCmd"            output="screen" />
 <node name="entranceCmd"      pkg="behavior_tree_leaves"  type="entranceCmd"          output="screen" />
-
 <node name="batteryOK"        pkg="behavior_tree_leaves"  type="batteryOK"            output="screen" /> 
 <node name="GoToKit"          pkg="behavior_tree_leaves"  type="GoToKit"              output="screen"       launch-prefix="xterm -e" /> 
 <node name="GoTolounge"       pkg="behavior_tree_leaves"  type="GoTolounge"           output="screen"       launch-prefix="xterm -e" /> 
 <node name="GoToEntrance"     pkg="behavior_tree_leaves"  type="GoToEntrance"         output="screen"       launch-prefix="xterm -e" /> 
-
 <node name="navi_to_H"        pkg="behavior_tree_leaves"  type="navi_to_H"            output="screen"       launch-prefix="xterm -e" /> 
 
+</group>
 
-  
+<!-- In case of actual robot, the Xterm terminal will not open -->
+<group if="$(eval arg('using_sim') == false)">
+
+<node name="kitCmd"           pkg="behavior_tree_leaves"  type="kitCmd"               output="screen" />
+<node name="loungeCmd"        pkg="behavior_tree_leaves"  type="loungeCmd"            output="screen" />
+<node name="entranceCmd"      pkg="behavior_tree_leaves"  type="entranceCmd"          output="screen" />
+<node name="batteryOK"        pkg="behavior_tree_leaves"  type="batteryOK"            output="screen" /> 
+<node name="GoToKit"          pkg="behavior_tree_leaves"  type="GoToKit"              output="screen" /> 
+<node name="GoTolounge"       pkg="behavior_tree_leaves"  type="GoTolounge"           output="screen" /> 
+<node name="GoToEntrance"     pkg="behavior_tree_leaves"  type="GoToEntrance"         output="screen" /> 
+<node name="navi_to_H"        pkg="behavior_tree_leaves"  type="navi_to_H"            output="screen" /> 
+
+</group>
 </launch>
 
 <!-- Use this command for seperate window-->

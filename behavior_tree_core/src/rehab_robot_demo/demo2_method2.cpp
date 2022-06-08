@@ -16,6 +16,7 @@
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "demo2_method2");
+    ros::NodeHandle n;
     try
     {
         int TickPeriod_milliseconds = 50;
@@ -136,7 +137,7 @@ int main(int argc, char **argv)
         // fallback5->AddChild(GoToEntrance);
      
         //Execute the BT from Root Node//
-        Execute(fallback1, TickPeriod_milliseconds);  // from BehaviorTree.cpp
+        Execute(fallback1, TickPeriod_milliseconds, &n);  // from BehaviorTree.cpp
 
     }
     catch (BT::BehaviorTreeException& Exception)

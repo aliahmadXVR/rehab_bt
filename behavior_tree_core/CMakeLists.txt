@@ -101,38 +101,38 @@ add_library(${PROJECT_NAME} ${BTSrcLibrary} ${BTHeadLibrary})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
 add_dependencies(${PROJECT_NAME} behavior_tree_core_generate_messages_cpp)
 
-add_executable(tree src/tree.cpp)
-target_link_libraries(tree
-  ${catkin_LIBRARIES}
-  ${PROJECT_NAME})
+# add_executable(tree src/tree.cpp)
+# target_link_libraries(tree
+#   ${catkin_LIBRARIES}
+#   ${PROJECT_NAME})
 
-add_executable(gtest_tree src/gtest/gtest_tree.cpp)
-target_link_libraries(gtest_tree
-  ${catkin_LIBRARIES}
-  ${PROJECT_NAME}
-  ${GTEST_LIBRARIES})
+# add_executable(gtest_tree src/gtest/gtest_tree.cpp)
+# target_link_libraries(gtest_tree
+#   ${catkin_LIBRARIES}
+#   ${PROJECT_NAME}
+#   ${GTEST_LIBRARIES})
 
-add_executable(gtest_ros src/gtest/external_ros_nodes_test.cpp)
-target_link_libraries(gtest_ros
-  ${catkin_LIBRARIES}
-  ${PROJECT_NAME}
-  ${GTEST_LIBRARIES})
+# add_executable(gtest_ros src/gtest/external_ros_nodes_test.cpp)
+# target_link_libraries(gtest_ros
+#   ${catkin_LIBRARIES}
+#   ${PROJECT_NAME}
+#   ${GTEST_LIBRARIES})
 
 
  #-----------------------------------# 
 #DEMO-1 COMPILITION
-add_executable(demo1 src/rehab_robot_demo/demo1.cpp)
-target_link_libraries(demo1
-  ${catkin_LIBRARIES}
-  ${PROJECT_NAME}
-  ${GTEST_LIBRARIES})
+# add_executable(demo1 src/rehab_robot_demo/demo1.cpp)
+# target_link_libraries(demo1
+#   ${catkin_LIBRARIES}
+#   ${PROJECT_NAME}
+#   ${GTEST_LIBRARIES})
 
-#DEMO-2 COMPILITION
-add_executable(demo2 src/rehab_robot_demo/demo2.cpp)
-target_link_libraries(demo2
-  ${catkin_LIBRARIES}
-  ${PROJECT_NAME}
-  ${GTEST_LIBRARIES})
+# #DEMO-2 COMPILITION
+# add_executable(demo2 src/rehab_robot_demo/demo2.cpp)
+# target_link_libraries(demo2
+#   ${catkin_LIBRARIES}
+#   ${PROJECT_NAME}
+#   ${GTEST_LIBRARIES})
 
 #DEMO-2 Method-2 COMPILITION 
 add_executable(demo2_method2 src/rehab_robot_demo/demo2_method2.cpp)
