@@ -28,83 +28,27 @@ After following the step 2 in the pre-requisites, you must have the following in
 ## Usage 
 After following the above setup process, run the following nodes: 
 
-1. Run the following launch file which will launch all the tree nodes and relevant rosparameters.  
+1. Run the following launch file which will launch all the tree nodes and relevant rosparameters. This launch file accepts a parameter ```using_sim``` which must be set to ```false``` when testing on actual robot. For testing the whole behavior tree framework with simulation, this parameter must be set to true. In this scope, only testing with the actual robot has been discussed. 
+
+   ```bash 
+   roslaunch behavior_tree_leaves rehab_robot_demo2.launch using_sim:=false
+   ``` 
+   You must see the rosparameters and the running ros nodes in the terminal as shown below in the image. 
+
+   ![roslaunch_tree_nodes](images/running_tree_launch.png)
 
 
+2. Run the following to run the main node, 
    
    ```bash 
-   rosrun rehab_person_loc publish_text_marker_act
-   ``` 
-   to display the markers on the living lab map. These markers locations are hardcoded in the code. To modify the location of any marker, edit the respective marker location in ```publish_text_marker_act.cpp``` file. The map in the RVIZ should look similar to the one shown below after adding the relevant marker topics.  
-
-
-2. Run the following to run the main node.,
-   
-   ```bash 
-   rosrun rehab_person_loc getTime_act
+   rosrun behavior_tree_core demo2_method2 
    ```
+   This node will run the tree algorithm and check for all the tree nodes that are running and will execute the behavior accordingly. You must see the status of different nodes printed on the terminal. This shows that the node is running error free.See the image below for reference. 
+   
+   ![roslaunch_tree_nodes](images/tree_running.png)
    
 
-   ### Subsribed Topics: 
-   1. ```amcl_pose``` (geometry_msgs/PoseWithCovarianceStamped)
    
-         Pose of the robot in the MAP frame.
-
-   2. ```person_loc``` (geometry_msgs/PointStamped)
-
-         Location of person in camera frame.
-   
-   ### Published Topics
-   1. ```person_loc_estimated``` (geometry_msgs/PointStamped) 
-   
-         Computed location of person in MAP frame
-
-   2. ```location_tag```(rehab_person_loc/location_info)
-   
-         Location of the robot and person in MAP.
-
-   3. ```time_info```(rehab_person_loc/time_info) 
-      
-         The duration the person spents @ various locations in the tagged area in MAP. 
-
-
-   ### Messages
-   1.  ```location_tag.msg```
-
-   ```bash
-   time stamp
-   string frame_id
-   string robot_location
-   string person_location
-   ``` 
-
-   2. ```time_info.msg```
-
-   ```bash
-   int32 kitchen_time
-   int32 lounge_time
-   int32 entrance_time
-   int32 lobby_time
-   int32 tvRoom_time
-   int32 bedRoom_time
-   int32 away_time
-   ```
-
-
-## Output
-Check the below two published topics for the output shown below: 
-
-* The topic ```location_tag``` will show the person and robot location in the MAP frame. Ouput will be like the one shown below. 
-  
-
-* The topic ```time_info``` will show the duration (in seconds) the person spends at various locations inside the MAP. Ouput will be like the one shown below. 
-
-
-* Add the topic ```person_loc_estimated``` to *RVIZ* for visualizing the location of the person inside the MAP. The output will be like the one shown below (person location shown as purple colored marker on the MAP)
-  
-
-* The package also logs the person and robot location data along with the system clock time stamps in a text file. The log file is stored in ```rehab_person_loc/logs``` folder with the name ```rehab_person_loc.txt```. Sample file can be checked [here](rehab_person_loc/../logs/rehab_person_loc.txt) 
-
 
 
 ___
