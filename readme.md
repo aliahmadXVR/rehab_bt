@@ -9,6 +9,13 @@ This package contains the behavior tree based Rehab robot control framework. The
 As a first implementation, a basic scenerio is implemented in this repository. A basic block diagram of overall system is shown below:
 ![overall-system-image](images/Basic_comm_concept.png)
 
+In this repository, a basic demo has been implementated. Two basic actions (battery check & Go to a location) have been implemented and tested on actual robot. A basic flow chart of the tree and the tree diagram (in terms of behavior diagram) has been shown below. 
+
+![tree-flow](images/tree_flow.png)
+
+
+![demo2-tree](images/demo2_tree.png)
+
 
 
 ## Pre-Requisites
