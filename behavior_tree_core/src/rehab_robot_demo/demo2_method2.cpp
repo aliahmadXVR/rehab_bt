@@ -26,14 +26,18 @@ int main(int argc, char **argv)
         BT::ROSCondition* batteryOK = new BT::ROSCondition("batteryOK");
         BT::ROSCondition* loungeCmd = new BT::ROSCondition("loungeCmd");
         BT::ROSCondition* entranceCmd = new BT::ROSCondition("entranceCmd");
-
-
+        BT::ROSCondition* lobbycmd = new BT::ROSCondition("lobbycmd");
+        BT::ROSCondition* tvRoomcmd = new BT::ROSCondition("tvRoomcmd");
+        BT::ROSCondition* bedRoomcmd = new BT::ROSCondition("bedRoomcmd");
 
         //Action Nodes//
         BT::ROSAction* navi_to_H = new BT::ROSAction("navi_to_H");
         BT::ROSAction* GoToKit = new BT::ROSAction("GoToKit");
         BT::ROSAction* GoTolounge = new BT::ROSAction("GoTolounge");
         BT::ROSAction* GoToEntrance = new BT::ROSAction("GoToEntrance");
+        BT::ROSAction* GoToLobby = new BT::ROSAction("GoToLobby");
+        BT::ROSAction* GoToTvroom = new BT::ROSAction("GoToTvroom");
+        BT::ROSAction* GoTobedRoom = new BT::ROSAction("GoTobedRoom");
 
 
         //Sequences//
@@ -47,66 +51,21 @@ int main(int argc, char **argv)
         BT:: FallbackNode* fallback2 = new BT:: FallbackNode("fallback2");
         BT:: FallbackNode* fallback3 = new BT:: FallbackNode("fallback3");
         BT:: FallbackNode* fallback4 = new BT:: FallbackNode("fallback4");
-        BT:: FallbackNode* fallback5 = new BT:: FallbackNode("fallback4");
+        BT:: FallbackNode* fallback5 = new BT:: FallbackNode("fallback5");
+        BT:: FallbackNode* fallback6 = new BT:: FallbackNode("fallback6");
+        BT:: FallbackNode* fallback7 = new BT:: FallbackNode("fallback7");
+        BT:: FallbackNode* fallback8 = new BT:: FallbackNode("fallback8");
 
 
-
-        // sequence0->AddChild(fallback2);
-        // sequence0->AddChild(sequence1);
-
-        // fallback2->AddChild(batteryOK);
-        // fallback2->AddChild(navi_to_H);
-
-        
-        // sequence1->AddChild(fallback3);
-        // sequence1->AddChild(fallback4);
-        // sequence1->AddChild(fallback5);
-
-        // fallback3->AddChild(kitCmd);
-        // fallback3->AddChild(GoToKit);
-
-        // fallback4->AddChild(loungeCmd);
-        // fallback4->AddChild(GoTolounge);
-
-        // fallback5->AddChild(entranceCmd);
-        // fallback5->AddChild(GoToEntrance);
-
-
-
-// // //---------------
-//         fallback1->AddChild(fallback2);
-//         fallback1->AddChild(sequence1);
-
-//         fallback2->AddChild(batteryOK);
-//         fallback2->AddChild(navi_to_H);
-
-        
-//         sequence1->AddChild(fallback3);
-//         sequence1->AddChild(fallback4);
-//         sequence1->AddChild(fallback5);
-
-//         fallback3->AddChild(kitCmd);
-//         fallback3->AddChild(GoToKit);
-
-//         fallback4->AddChild(loungeCmd);
-//         fallback4->AddChild(GoTolounge);
-
-//         fallback5->AddChild(entranceCmd);
-//         fallback5->AddChild(GoToEntrance);
-
-
-// //---------------
-        // fallback1->AddChild(fallback2);
         fallback1->AddChild(batteryOK);
         fallback1->AddChild(sequence1);
 
-        // fallback2->AddChild(batteryOK);
-        // fallback2->AddChild(navi_to_H);
-
-        
         sequence1->AddChild(fallback3);
         sequence1->AddChild(fallback4);
         sequence1->AddChild(fallback5);
+        sequence1->AddChild(fallback6);
+        sequence1->AddChild(fallback7);
+        sequence1->AddChild(fallback8);
 
         fallback3->AddChild(kitCmd);
         fallback3->AddChild(GoToKit);
@@ -117,25 +76,15 @@ int main(int argc, char **argv)
         fallback5->AddChild(entranceCmd);
         fallback5->AddChild(GoToEntrance);
 
+        fallback6->AddChild(lobbycmd);
+        fallback6->AddChild(GoToLobby);
 
-//----------in one seqeunce 
-        // sequence1->AddChild(fallback2);
-        // sequence1->AddChild(fallback3);
-        // sequence1->AddChild(fallback4);
-        // sequence1->AddChild(fallback5);
+        fallback7->AddChild(tvRoomcmd);
+        fallback7->AddChild(GoToTvroom);
 
-        // fallback2->AddChild(batteryOK);
-        // fallback2->AddChild(navi_to_H);
+        fallback8->AddChild(bedRoomcmd);
+        fallback8->AddChild(GoTobedRoom);
 
-        // fallback3->AddChild(kitCmd);
-        // fallback3->AddChild(GoToKit);
-
-        // fallback4->AddChild(loungeCmd);
-        // fallback4->AddChild(GoTolounge);
-
-        // fallback5->AddChild(entranceCmd);
-        // fallback5->AddChild(GoToEntrance);
-     
         //Execute the BT from Root Node//
         Execute(fallback1, TickPeriod_milliseconds, &n);  // from BehaviorTree.cpp
 

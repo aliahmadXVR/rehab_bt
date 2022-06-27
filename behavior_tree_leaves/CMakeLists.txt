@@ -325,4 +325,69 @@ add_dependencies(
   ${PROJECT_NAME}_generate_messages_cpp
   behavior_tree_core_generate_messages_cpp
 )
+
+add_executable(GoToLobby example_nodes/cpp/demotree2/GoToLobby.cpp)
+target_link_libraries(GoToLobby  ${catkin_LIBRARIES})
+add_dependencies(
+  GoToLobby
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(GoToTvroom example_nodes/cpp/demotree2/GoToTvroom.cpp)
+target_link_libraries(GoToTvroom  ${catkin_LIBRARIES})
+add_dependencies(
+  GoToTvroom
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(GoTobedRoom example_nodes/cpp/demotree2/GoTobedRoom.cpp)
+target_link_libraries(GoTobedRoom  ${catkin_LIBRARIES})
+add_dependencies(
+  GoTobedRoom
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(GoTobathRoom example_nodes/cpp/demotree2/GoTobathRoom.cpp)
+target_link_libraries(GoTobathRoom  ${catkin_LIBRARIES})
+add_dependencies(
+  GoTobathRoom
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(lobbycmd example_nodes/cpp/demotree2/lobbycmd.cpp)
+target_link_libraries(lobbycmd  ${catkin_LIBRARIES})
+add_dependencies(
+  lobbycmd
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(tvRoomcmd example_nodes/cpp/demotree2/tvRoomcmd.cpp)
+target_link_libraries(tvRoomcmd  ${catkin_LIBRARIES})
+add_dependencies(
+  tvRoomcmd
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(bedRoomcmd example_nodes/cpp/demotree2/bedRoomcmd.cpp)
+target_link_libraries(bedRoomcmd  ${catkin_LIBRARIES})
+add_dependencies(
+  bedRoomcmd
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+
 ###--------------------------------------------------

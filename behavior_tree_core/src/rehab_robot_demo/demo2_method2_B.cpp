@@ -49,16 +49,19 @@ int main(int argc, char **argv)
         BT:: FallbackNode* fallback4 = new BT:: FallbackNode("fallback4");
         BT:: FallbackNode* fallback5 = new BT:: FallbackNode("fallback4");
 
+        BT:: ParallelNode* parallel1 = new BT:: ParallelNode("parallel1", 2);
+
 
 
 // //---------------
         fallback1->AddChild(batteryOK);
         fallback1->AddChild(sequence1);
-        //fallback1->AddChild(sequence2);
        
         sequence1->AddChild(fallback3);
         sequence1->AddChild(fallback4);
         sequence1->AddChild(fallback5);
+        sequence1->AddChild(parallel1);
+
 
         fallback3->AddChild(kitCmd);
         fallback3->AddChild(GoToKit);
@@ -67,8 +70,11 @@ int main(int argc, char **argv)
         fallback4->AddChild(loungeCmd);
         fallback4->AddChild(GoTolounge);
 
-        fallback5->AddChild(entranceCmd);
-        fallback5->AddChild(GoToEntrance);
+        // fallback5->AddChild(entranceCmd);
+        // fallback5->AddChild(GoToEntrance);
+
+        parallel1->AddChild(entranceCmd);
+        parallel1->AddChild(GoToEntrance);
 
         // sequence2->AddChild()
      
