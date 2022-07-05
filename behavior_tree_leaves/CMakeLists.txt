@@ -389,5 +389,79 @@ add_dependencies(
   behavior_tree_core_generate_messages_cpp
 )
 
+add_executable(navCmd example_nodes/cpp/demotree2/navCmd.cpp)
+target_link_libraries(navCmd  ${catkin_LIBRARIES})
+add_dependencies(
+  navCmd
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(fallHzCmd example_nodes/cpp/demotree2/fallHzCmd.cpp)
+target_link_libraries(fallHzCmd  ${catkin_LIBRARIES})
+add_dependencies(
+  fallHzCmd
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
 
 ###--------------------------------------------------
+
+###---------For Fall Hazard Scan----------------------
+
+add_executable(GoToKit_f example_nodes/cpp/demotree2/fallhazardnodes/GoToKit_f.cpp)
+target_link_libraries(GoToKit_f  ${catkin_LIBRARIES})
+add_dependencies(
+  GoToKit_f
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(GoTolounge_f example_nodes/cpp/demotree2/fallhazardnodes/GoTolounge_f.cpp)
+target_link_libraries(GoTolounge_f  ${catkin_LIBRARIES})
+add_dependencies(
+  GoTolounge_f
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(GoToEntrance_f example_nodes/cpp/demotree2/fallhazardnodes/GoToEntrance_f.cpp)
+target_link_libraries(GoToEntrance_f  ${catkin_LIBRARIES})
+add_dependencies(
+  GoToEntrance_f
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(GoToLobby_f example_nodes/cpp/demotree2/fallhazardnodes/GoToLobby_f.cpp)
+target_link_libraries(GoToLobby_f  ${catkin_LIBRARIES})
+add_dependencies(
+  GoToLobby_f
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(GoToTvroom_f example_nodes/cpp/demotree2/fallhazardnodes/GoToTvroom_f.cpp)
+target_link_libraries(GoToTvroom_f  ${catkin_LIBRARIES})
+add_dependencies(
+  GoToTvroom_f
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(GoTobedRoom_f example_nodes/cpp/demotree2/fallhazardnodes/GoTobedRoom_f.cpp)
+target_link_libraries(GoTobedRoom_f  ${catkin_LIBRARIES})
+add_dependencies(
+  GoTobedRoom_f
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+  ###--------------------------------------------------

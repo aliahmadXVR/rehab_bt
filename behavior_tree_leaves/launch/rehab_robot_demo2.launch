@@ -9,6 +9,10 @@
 
 <rosparam file="$(find behavior_tree_leaves)/params/location_XY_sim.yaml" />
 
+<node name="navCmd"              pkg="behavior_tree_leaves"  type="navCmd"               output="screen" />
+<node name="fallHzCmd"           pkg="behavior_tree_leaves"  type="fallHzCmd"            output="screen" />
+
+
 <node name="kitCmd"           pkg="behavior_tree_leaves"  type="kitCmd"               output="screen" />
 <node name="loungeCmd"        pkg="behavior_tree_leaves"  type="loungeCmd"            output="screen" />
 <node name="entranceCmd"      pkg="behavior_tree_leaves"  type="entranceCmd"          output="screen" />
@@ -24,6 +28,13 @@
 <node name="GoToTvroom"       pkg="behavior_tree_leaves"  type="GoToTvroom"           output="screen"       launch-prefix="xterm -e" /> 
 <node name="GoTobedRoom"      pkg="behavior_tree_leaves"  type="GoTobedRoom"          output="screen"       launch-prefix="xterm -e" /> 
 
+<node name="GoToKit_f"          pkg="behavior_tree_leaves"  type="GoToKit_f"              output="screen"       /> 
+<node name="GoTolounge_f"       pkg="behavior_tree_leaves"  type="GoTolounge_f"           output="screen"       /> 
+<node name="GoToEntrance_f"     pkg="behavior_tree_leaves"  type="GoToEntrance_f"         output="screen"       />
+<node name="GoToLobby_f"        pkg="behavior_tree_leaves"  type="GoToLobby_f"            output="screen"       /> 
+<node name="GoToTvroom_f"       pkg="behavior_tree_leaves"  type="GoToTvroom_f"           output="screen"       /> 
+<node name="GoTobedRoom_f"      pkg="behavior_tree_leaves"  type="GoTobedRoom_f"          output="screen"       /> 
+
 <node name="navi_to_H"        pkg="behavior_tree_leaves"  type="navi_to_H"            output="screen"       launch-prefix="xterm -e" /> 
 
 </group>
@@ -33,9 +44,13 @@
 
 <rosparam file="$(find behavior_tree_leaves)/params/location_XY_actual.yaml" />
 
+<node name="navCmd"           pkg="behavior_tree_leaves"  type="navCmd"               output="screen" />
+<node name="fallHzCmd"        pkg="behavior_tree_leaves"  type="fallHzCmd"            output="screen" />
+
 <node name="kitCmd"           pkg="behavior_tree_leaves"  type="kitCmd"               output="screen" />
 <node name="loungeCmd"        pkg="behavior_tree_leaves"  type="loungeCmd"            output="screen" />
 <node name="entranceCmd"      pkg="behavior_tree_leaves"  type="entranceCmd"          output="screen" />
+
 <node name="batteryOK"        pkg="behavior_tree_leaves"  type="batteryOK"            output="screen" /> 
 <node name="GoToKit"          pkg="behavior_tree_leaves"  type="GoToKit"              output="screen" /> 
 <node name="GoTolounge"       pkg="behavior_tree_leaves"  type="GoTolounge"           output="screen" /> 
@@ -43,6 +58,14 @@
 <node name="GoToLobby"        pkg="behavior_tree_leaves"  type="GoToLobby"            output="screen" /> 
 <node name="GoToTvroom"       pkg="behavior_tree_leaves"  type="GoToTvroom"           output="screen" /> 
 <node name="GoTobedRoom"      pkg="behavior_tree_leaves"  type="GoTobedRoom"          output="screen" /> 
+
+<node name="GoToKit_f"          pkg="behavior_tree_leaves"  type="GoToKit_f"              output="screen"       /> 
+<node name="GoTolounge_f"       pkg="behavior_tree_leaves"  type="GoTolounge_f"           output="screen"       /> 
+<node name="GoToEntrance_f"     pkg="behavior_tree_leaves"  type="GoToEntrance_f"         output="screen"       />
+<node name="GoToLobby_f"        pkg="behavior_tree_leaves"  type="GoToLobby_f"            output="screen"       /> 
+<node name="GoToTvroom_f"       pkg="behavior_tree_leaves"  type="GoToTvroom_f"           output="screen"       /> 
+<node name="GoTobedRoom_f"      pkg="behavior_tree_leaves"  type="GoTobedRoom_f"          output="screen"       /> 
+
 <node name="navi_to_H"        pkg="behavior_tree_leaves"  type="navi_to_H"            output="screen" /> 
 
 </group>

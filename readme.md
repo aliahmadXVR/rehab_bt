@@ -57,9 +57,6 @@ After following the above setup process, run the following nodes:
    ![roslaunch_tree_nodes](images/tree_running.png)
    
 
-   
-
-
 ___
 <br></br>
 
