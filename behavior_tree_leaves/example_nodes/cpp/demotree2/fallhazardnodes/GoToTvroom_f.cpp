@@ -45,8 +45,8 @@ public:
         as_.start ();
 
         //Update the Location Designator//
-        nh_.getParam("/lounge/x",move_base_goal.target_pose.pose.position.x);
-        nh_.getParam("/lounge/y",move_base_goal.target_pose.pose.position.y);
+        nh_.getParam("/tvRoom/x",move_base_goal.target_pose.pose.position.x);
+        nh_.getParam("/tvRoom/y",move_base_goal.target_pose.pose.position.y);
 
         //For now fixing the z and the heading//
         move_base_goal.target_pose.pose.position.z = 0.0;

@@ -47,9 +47,9 @@ public:
         //Update the Location Designator//
         nh_.getParam("/entrance/x",move_base_goal.target_pose.pose.position.x);
         nh_.getParam("/entrance/y",move_base_goal.target_pose.pose.position.y);
-
-        //For now fixing the z and the heading//
         move_base_goal.target_pose.pose.position.z = 0.0;
+
+        move_base_goal.target_pose.pose.orientation.z = 0.0;
         move_base_goal.target_pose.pose.orientation.w = 1.0;
     }
   
@@ -78,6 +78,21 @@ public:
         std::cout<<"Y ------------------" << move_base_goal.target_pose.pose.position.y<<std::endl;
 
         ROS_INFO("**Sending New goal");
+        ac.sendGoal(move_base_goal);
+        ac.waitForResult();
+
+        //Rotate after reaching the destination
+        move_base_goal.target_pose.pose.orientation.z = 1.0;
+        move_base_goal.target_pose.pose.orientation.w = 0.0;
+    
+        ROS_INFO("**Sending Rotation cmd");
+        ac.sendGoal(move_base_goal);
+        ac.waitForResult();
+
+        //Rotate after reaching the destination
+        move_base_goal.target_pose.pose.orientation.z = 0.0;
+        move_base_goal.target_pose.pose.orientation.w = 1.0;
+        ROS_INFO("**Sending Rotation cmd");
         ac.sendGoal(move_base_goal);
         ac.waitForResult();
 

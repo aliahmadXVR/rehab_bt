@@ -55,7 +55,7 @@ int main(int argc, char **argv)
         BT:: SequenceNode* sequence0 = new BT::SequenceNode("sequence0");
         BT:: SequenceNode* sequence1 = new BT::SequenceNode("sequence1");
         BT:: SequenceNode* sequence2 = new BT::SequenceNode("sequence2");
-        BT:: SequenceNode* sequence3 = new BT::SequenceNode("sequence3");
+        BT:: SequenceNodeWithMemory* sequence3 = new BT::SequenceNodeWithMemory("sequence3");
 
         //Fallback//
         BT:: FallbackNode* fallback1 = new BT:: FallbackNode("fallback1");
