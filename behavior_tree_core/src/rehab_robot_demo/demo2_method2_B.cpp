@@ -78,11 +78,11 @@ int main(int argc, char **argv)
         fallback10->AddChild(fallHzCmd);
         fallback10->AddChild(sequence3);
         sequence3->AddChild(GoToKit_f);
+        sequence3->AddChild(GoToLobby_f);
+        sequence3->AddChild(GoTobedRoom_f);
         sequence3->AddChild(GoTolounge_f);
         sequence3->AddChild(GoToEntrance_f);
-        sequence3->AddChild(GoToLobby_f);
         sequence3->AddChild(GoToTvroom_f);
-        sequence3->AddChild(GoTobedRoom_f);
            
         fallback3->AddChild(navCmd);
         fallback3->AddChild(sequence2);
@@ -97,21 +97,21 @@ int main(int argc, char **argv)
         fallback4->AddChild(kitCmd);
         fallback4->AddChild(GoToKit);
 
-        // //--
-        fallback5->AddChild(loungeCmd);
-        fallback5->AddChild(GoTolounge);
+        fallback5->AddChild(lobbycmd);
+        fallback5->AddChild(GoToLobby);
 
-        fallback6->AddChild(entranceCmd);
-        fallback6->AddChild(GoToEntrance);
+        fallback6->AddChild(bedRoomcmd);
+        fallback6->AddChild(GoTobedRoom);
 
-        fallback7->AddChild(lobbycmd);
-        fallback7->AddChild(GoToLobby);
+        fallback7->AddChild(loungeCmd);
+        fallback7->AddChild(GoTolounge);
 
-        fallback8->AddChild(tvRoomcmd);
-        fallback8->AddChild(GoToTvroom);
+        fallback8->AddChild(entranceCmd);
+        fallback8->AddChild(GoToEntrance);
 
-        fallback9->AddChild(bedRoomcmd);
-        fallback9->AddChild(GoTobedRoom);
+        fallback9->AddChild(tvRoomcmd);
+        fallback9->AddChild(GoToTvroom);
+
         // //--
 
         //Execute the BT from Root Node//
