@@ -24,7 +24,8 @@ int main(int argc, char **argv)
         //Condition Nodes//
         BT::ROSCondition* navCmd = new BT::ROSCondition("navCmd");
         BT::ROSCondition* fallHzCmd = new BT::ROSCondition("fallHzCmd");
-
+        BT::ROSCondition* heyRuyi_cmd = new BT::ROSCondition("heyRuyi_cmd");
+        BT::ROSCondition* search_person = new BT::ROSCondition("search_person");
 
         BT::ROSCondition* kitCmd = new BT::ROSCondition("kitCmd");
         BT::ROSCondition* batteryOK = new BT::ROSCondition("batteryOK");
@@ -68,13 +69,17 @@ int main(int argc, char **argv)
         BT:: FallbackNode* fallback8 = new BT:: FallbackNode("fallback8");
         BT:: FallbackNode* fallback9 = new BT:: FallbackNode("fallback9");
         BT:: FallbackNode* fallback10 = new BT:: FallbackNode("fallback10");
+        BT:: FallbackNode* fallback11 = new BT:: FallbackNode("fallback11");
+
 
         fallback1->AddChild(batteryOK);
         fallback1->AddChild(sequence1);
        
         sequence1->AddChild(fallback3);
         sequence1->AddChild(fallback10);
+        sequence1->AddChild(fallback11);
 
+        //FallHazard Scan Related Stuff//
         fallback10->AddChild(fallHzCmd);
         fallback10->AddChild(sequence3);
         sequence3->AddChild(GoToKit_f);
@@ -84,6 +89,7 @@ int main(int argc, char **argv)
         sequence3->AddChild(GoToEntrance_f);
         sequence3->AddChild(GoToTvroom_f);
            
+        //Nav Cmds GoTo Related Stuff Here//
         fallback3->AddChild(navCmd);
         fallback3->AddChild(sequence2);
               
@@ -111,6 +117,10 @@ int main(int argc, char **argv)
 
         fallback9->AddChild(tvRoomcmd);
         fallback9->AddChild(GoToTvroom);
+
+        //Conversation Hey Ruyi Related Items Here//
+        fallback11->AddChild(heyRuyi_cmd);
+        fallback11->AddChild(search_person);
 
         // //--
 

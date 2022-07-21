@@ -57,7 +57,7 @@ public:
 
     void execute_callback(const behavior_tree_core::BTGoalConstPtr &goal)
     {
-        if (input_key.data ==7 )
+        if (input_key.data ==8 )
         {
             set_status(FAILURE);
         }

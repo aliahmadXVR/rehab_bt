@@ -13,13 +13,21 @@
 #include <ros/ros.h>
 #include <actionlib/server/simple_action_server.h>
 #include <behavior_tree_core/BTAction.h>
+#include <actionlib/server/simple_action_server.h>
+#include <behavior_tree_core/BTAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
 
 
 #include <string>
 #include "std_msgs/Int16.h"
+#include "std_msgs/String.h"
+#include "geometry_msgs/PointStamped.h"
+#include "geometry_msgs/Twist.h"
+#include<sstream>
+#include<vector>
 
+// using namespace std;
 
 enum Status {RUNNING, SUCCESS, FAILURE};
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
@@ -29,79 +37,123 @@ class BTAction
 {
 protected:
     ros::NodeHandle nh_;
+    // ros::Rate r(10);
     // NodeHandle instance must be created before this line. Otherwise strange errors may occur.
     actionlib::SimpleActionServer<behavior_tree_core::BTAction> as_;
     std::string action_name_;
-    MoveBaseClient ac;
-    move_base_msgs::MoveBaseGoal move_base_goal;
+    // MoveBaseClient ac;
+    // move_base_msgs::MoveBaseGoal move_base_goal;
     // create messages that are used to published feedback/result
     behavior_tree_core::BTFeedback feedback_;
     behavior_tree_core::BTResult result_;
-    std_msgs::Int16 battery_voltage; //init with Full battery
+    bool person_point;
+    bool hey_msg;
+    int count = 0;
+    geometry_msgs::Twist msg;
     
 
 public:
-    explicit BTAction(std::string name) : ac("move_base", true),  as_(nh_, name, boost::bind(&BTAction::execute_callback, this, _1), false),
+    // explicit BTAction(std::string name) : ac("move_base", true),  as_(nh_, name, boost::bind(&BTAction::execute_callback, this, _1), false),
+    // action_name_(name)
+    explicit BTAction(std::string name) :
+    as_(nh_, name, boost::bind(&BTAction::execute_callback, this, _1), false),
     action_name_(name)
     {
         // start the action server (action in sense of Actionlib not BT action)
         as_.start();
         ROS_INFO("Condition Server Started");
-        battery_voltage.data = 40;
+        person_point = false;
+        hey_msg = false;
 
-        //Update the Location Designator//
-        nh_.getParam("/dock/x",move_base_goal.target_pose.pose.position.x);
-        nh_.getParam("/dock/y",move_base_goal.target_pose.pose.position.y);
-
-        //For now fixing the z and the heading//
-        move_base_goal.target_pose.pose.position.z = 0.0;
-        move_base_goal.target_pose.pose.orientation.w = 1.0;
     }
 
-    ros::Subscriber sub = nh_.subscribe("battery_health", 1000, &BTAction::BatteryHealthCallback, this);
+    ros::Subscriber point_sub = nh_.subscribe("/person_loc",1000, &BTAction::cameraCallBack,this);
+    
+    // ros::Subscriber sub = nh_.subscribe("heyRuyi_topic", 1000, &BTAction::conditionSetCallback, this);
+
+    ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 1000);
+
 
     ~BTAction(void)
     { }
 
-    void BatteryHealthCallback(const std_msgs::Int16& msg)
-    {    
-        battery_voltage.data = msg.data;
+    // void conditionSetCallback(const std_msgs::String::ConstPtr& msg)
+    // {    
+    //     //ROS_INFO("I heard: [%s]", msg->data.c_str());
+
+    //     std::string my_str = msg->data;
+    //     if(my_str == "hey,ruyi")
+    //     {
+    //         hey_msg = true;
+    //         //ROS_INFO("Hey Ruyi string True");
+    //     }
+    //     else 
+    //     {
+    //         hey_msg = false;
+    //     }
+
+    // }
+
+    void cameraCallBack(const geometry_msgs::PointStamped::ConstPtr &ptr)
+    {
+        if (ptr->point.x != -9999 || ptr->point.y != -9999 || ptr->point.z != -9999)
+        {
+           person_point = true; 
+           ROS_INFO("Got Person Point");
+ 
+        }
+        else 
+        {
+            person_point = false; 
+           ROS_INFO("Person Point False");
+        }
     }
+
 
     void execute_callback(const behavior_tree_core::BTGoalConstPtr &goal)
     {
-        ROS_INFO("");
-        if (battery_voltage.data < 40)
+        ROS_INFO("Executing Call back");
+
+        //set_status(FAILURE);
+
+        if (as_.isPreemptRequested())
         {
-            set_status(SUCCESS);
+            ROS_INFO("Action Halted");
 
-            if (as_.isPreemptRequested())
-            {
-                ROS_INFO("Action Halted");
-
-                // set the action state to preempted
-                as_.setPreempted();
-                ac.cancelGoal();
-                ROS_INFO("Canceling All Goals");
-            }
-        
-             ROS_INFO("**Going to Home (Charging Dock");
-        
-            move_base_goal.target_pose.header.frame_id = "map";
-            move_base_goal.target_pose.header.stamp = ros::Time::now();
-
-            std::cout<<"X ------------------" << move_base_goal.target_pose.pose.position.x<<std::endl;
-            std::cout<<"Y ------------------" << move_base_goal.target_pose.pose.position.y<<std::endl;
-
-            ROS_INFO("**Sending New goal");
-            ac.sendGoal(move_base_goal);
-            ac.waitForResult();
-            //set_status(SUCCESS);
-
+            // set the action state to preempted
+            as_.setPreempted();
+            //ac.cancelGoal();
+            //ROS_INFO("Canceling All Goals");
         }
+    
+        ROS_INFO("**Rotating the Robot to find the person");
+    
+        if (!person_point) 
+        {
+            while(!person_point)
+            {
+                // count++;
+                msg.angular.z = 0.3;
+                pub_vel.publish(msg);
+                // r.sleep();
+                //ros::spinOnce();
+            }
+            msg.angular.z = 0.0;
+            pub_vel.publish(msg);
+            msg.angular.z = 0.0;
+            pub_vel.publish(msg);
+            msg.angular.z = 0.0;
+            pub_vel.publish(msg);
+            msg.angular.z = 0.0;
+            pub_vel.publish(msg);
+            person_point = false;
+           // count = 0;
+        //    set_status(SUCCESS);
+        }
+
         else
         {
-            set_status(FAILURE);
+            set_status(SUCCESS);
         }
     }
 
@@ -133,11 +185,10 @@ public:
 int main(int argc, char** argv)
 {
     
-    ros::init(argc, argv, "batteryOK");
+    ros::init(argc, argv, "search_person");
     ROS_INFO(" Enum: %d", RUNNING);
-    ROS_INFO(" condition Ready for Ticks");
+    ROS_INFO(" search_person condition Ready for Ticks");
     BTAction bt_action(ros::this_node::getName());
-    std::cout<<" This node Ends here---------------------------"<<std::endl;
 
     ros::spin();
     return 0;

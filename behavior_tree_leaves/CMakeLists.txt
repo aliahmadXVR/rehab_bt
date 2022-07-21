@@ -407,6 +407,24 @@ add_dependencies(
   behavior_tree_core_generate_messages_cpp
 )
 
+add_executable(heyRuyi_cmd example_nodes/cpp/demotree2/heyRuyi_cmd.cpp)
+target_link_libraries(heyRuyi_cmd  ${catkin_LIBRARIES})
+add_dependencies(
+  heyRuyi_cmd
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(search_person example_nodes/cpp/demotree2/search_person.cpp)
+target_link_libraries(search_person  ${catkin_LIBRARIES})
+add_dependencies(
+  search_person
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
 ###--------------------------------------------------
 
 ###---------For Fall Hazard Scan----------------------
@@ -465,3 +483,4 @@ add_dependencies(
   behavior_tree_core_generate_messages_cpp
 )
   ###--------------------------------------------------
+
