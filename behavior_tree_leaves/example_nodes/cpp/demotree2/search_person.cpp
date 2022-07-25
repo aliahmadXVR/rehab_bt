@@ -71,7 +71,7 @@ public:
     
     // ros::Subscriber sub = nh_.subscribe("heyRuyi_topic", 1000, &BTAction::conditionSetCallback, this);
 
-    ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 1000);
+    ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 1000);
 
 
     ~BTAction(void)
@@ -128,9 +128,9 @@ public:
     
         ROS_INFO("**Rotating the Robot to find the person");
     
-        if (!person_point) 
+        if (person_point == false) 
         {
-            while(!person_point)
+            while(person_point == false)
             {
                 // count++;
                 msg.angular.z = 0.3;
@@ -146,14 +146,14 @@ public:
             pub_vel.publish(msg);
             msg.angular.z = 0.0;
             pub_vel.publish(msg);
-            person_point = false;
+            //person_point = true;
            // count = 0;
-        //    set_status(SUCCESS);
+            set_status(SUCCESS);
         }
 
         else
         {
-            set_status(SUCCESS);
+            set_status(FAILURE);   //set_status(SUCCESS);
         }
     }
 

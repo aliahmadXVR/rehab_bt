@@ -197,7 +197,8 @@ public:
 
     // ros::Subscriber point_sub = nh_.subscribe("/person_loc",1000, &BTAction::cameraCallBack,this);
     
-    ros::Subscriber sub = nh_.subscribe("heyRuyi_topic", 1000, &BTAction::conditionSetCallback, this);
+    //ros::Subscriber sub = nh_.subscribe("heyRuyi_topic", 1000, &BTAction::conditionSetCallback, this);
+    ros::Subscriber sub = nh_.subscribe("hello_scenario", 1000, &BTAction::conditionSetCallback, this);
 
     ~BTAction(void)
     { }
@@ -206,7 +207,8 @@ public:
     {    
 
         std::string my_str = msg->data;
-        if(my_str == "hey,ruyi")
+        // if(my_str == "hey,ruyi")
+        if(my_str == "hello")
         {
             hey_msg = true;
             //ROS_INFO("Hey Ruyi string True");

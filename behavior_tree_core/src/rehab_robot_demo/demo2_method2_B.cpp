@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
     try
     {
-        int TickPeriod_milliseconds = 50;
+        int TickPeriod_milliseconds = 200;
 
         //Condition Nodes//
         BT::ROSCondition* navCmd = new BT::ROSCondition("navCmd");
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
         BT:: FallbackNode* fallback9 = new BT:: FallbackNode("fallback9");
         BT:: FallbackNode* fallback10 = new BT:: FallbackNode("fallback10");
         BT:: FallbackNode* fallback11 = new BT:: FallbackNode("fallback11");
-
+        // BT:: FallbackNodeWithMemory* fallback11 = new BT:: FallbackNode("fallback11");
 
         fallback1->AddChild(batteryOK);
         fallback1->AddChild(sequence1);
@@ -118,7 +118,7 @@ int main(int argc, char **argv)
         fallback9->AddChild(tvRoomcmd);
         fallback9->AddChild(GoToTvroom);
 
-        //Conversation Hey Ruyi Related Items Here//
+        // //Conversation Hey Ruyi Related Items Here//
         fallback11->AddChild(heyRuyi_cmd);
         fallback11->AddChild(search_person);
 
