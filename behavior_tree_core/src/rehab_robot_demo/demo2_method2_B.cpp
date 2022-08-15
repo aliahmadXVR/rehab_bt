@@ -19,8 +19,7 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
     try
     {
-        int TickPeriod_milliseconds = 200;
-
+        int TickPeriod_milliseconds = 100; //100ms tested on actual robot. testing same in simulation.
         //Condition Nodes//
         BT::ROSCondition* navCmd = new BT::ROSCondition("navCmd");
         BT::ROSCondition* fallHzCmd = new BT::ROSCondition("fallHzCmd");

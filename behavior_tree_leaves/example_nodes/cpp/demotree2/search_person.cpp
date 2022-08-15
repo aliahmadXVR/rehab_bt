@@ -126,7 +126,7 @@ public:
         {
             while(person_point == false)
             {
-                msg.angular.z = 0.3;
+                msg.angular.z = 0.1;   //0.3 for simulations if the robot moves too slow
                 pub_vel.publish(msg);
             }
             msg.angular.z = 0.0;
