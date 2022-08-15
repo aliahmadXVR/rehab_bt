@@ -53,8 +53,7 @@ protected:
     
 
 public:
-    // explicit BTAction(std::string name) : ac("move_base", true),  as_(nh_, name, boost::bind(&BTAction::execute_callback, this, _1), false),
-    // action_name_(name)
+
     explicit BTAction(std::string name) :
     as_(nh_, name, boost::bind(&BTAction::execute_callback, this, _1), false),
     action_name_(name)
@@ -69,30 +68,14 @@ public:
 
     ros::Subscriber point_sub = nh_.subscribe("/person_loc",1000, &BTAction::cameraCallBack,this);
     
-    // ros::Subscriber sub = nh_.subscribe("heyRuyi_topic", 1000, &BTAction::conditionSetCallback, this);
+    //ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 1000); //For Actual Hardware
+    ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 1000); //For simulation only
 
-    ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 1000);
 
 
     ~BTAction(void)
     { }
 
-    // void conditionSetCallback(const std_msgs::String::ConstPtr& msg)
-    // {    
-    //     //ROS_INFO("I heard: [%s]", msg->data.c_str());
-
-    //     std::string my_str = msg->data;
-    //     if(my_str == "hey,ruyi")
-    //     {
-    //         hey_msg = true;
-    //         //ROS_INFO("Hey Ruyi string True");
-    //     }
-    //     else 
-    //     {
-    //         hey_msg = false;
-    //     }
-
-    // }
 
     void cameraCallBack(const geometry_msgs::PointStamped::ConstPtr &ptr)
     {
@@ -124,6 +107,17 @@ public:
             as_.setPreempted();
             //ac.cancelGoal();
             //ROS_INFO("Canceling All Goals");
+            msg.angular.z = 0.0;
+            pub_vel.publish(msg);
+            msg.angular.z = 0.0;
+            pub_vel.publish(msg);
+            msg.angular.z = 0.0;
+            pub_vel.publish(msg);
+            msg.angular.z = 0.0;
+            pub_vel.publish(msg);
+            person_point = true;
+            ROS_INFO("Prempted Task and Stoping Robot!!!");
+            //set_status(SUCCESS);
         }
     
         ROS_INFO("**Rotating the Robot to find the person");
@@ -132,11 +126,8 @@ public:
         {
             while(person_point == false)
             {
-                // count++;
                 msg.angular.z = 0.3;
                 pub_vel.publish(msg);
-                // r.sleep();
-                //ros::spinOnce();
             }
             msg.angular.z = 0.0;
             pub_vel.publish(msg);

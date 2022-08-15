@@ -69,8 +69,8 @@ int main(int argc, char **argv)
         BT:: FallbackNode* fallback8 = new BT:: FallbackNode("fallback8");
         BT:: FallbackNode* fallback9 = new BT:: FallbackNode("fallback9");
         BT:: FallbackNode* fallback10 = new BT:: FallbackNode("fallback10");
-        BT:: FallbackNode* fallback11 = new BT:: FallbackNode("fallback11");
-        // BT:: FallbackNodeWithMemory* fallback11 = new BT:: FallbackNode("fallback11");
+        //BT:: FallbackNode* fallback11 = new BT:: FallbackNode("fallback11");
+        BT:: FallbackNodeWithMemory* fallback11 = new BT:: FallbackNodeWithMemory("fallback11");
 
         fallback1->AddChild(batteryOK);
         fallback1->AddChild(sequence1);
