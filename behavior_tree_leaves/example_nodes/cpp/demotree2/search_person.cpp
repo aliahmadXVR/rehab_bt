@@ -52,10 +52,10 @@ protected:
     geometry_msgs::Twist msg;
     std_msgs::String feedback_msg;
     bool publish_once = true;
-    
-    
 
-public:
+
+
+ public:
 
     explicit BTAction(std::string name) :
     as_(nh_, name, boost::bind(&BTAction::execute_callback, this, _1), false),
@@ -94,7 +94,7 @@ public:
         }
         else 
         {
-            person_point = false; 
+           person_point = false; 
            ROS_INFO("Person Point False");
         }
     }
