@@ -50,6 +50,9 @@ protected:
     bool hey_msg;
     int count = 0;
     geometry_msgs::Twist msg;
+    std_msgs::String feedback_msg;
+    bool publish_once = true;
+    
     
 
 public:
@@ -63,6 +66,7 @@ public:
         ROS_INFO("Condition Server Started");
         person_point = false;
         hey_msg = false;
+        
 
     }
 
@@ -70,6 +74,9 @@ public:
     
     //ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 1000); //For Actual Hardware
     ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 1000); //For simulation only
+    
+    
+    ros::Publisher pub_feedback = nh_.advertise<std_msgs::String>("/feedback_to_tablet", 1000); //Publsiher for Feedback to Tablet
 
 
 
@@ -96,7 +103,6 @@ public:
     void execute_callback(const behavior_tree_core::BTGoalConstPtr &goal)
     {
         ROS_INFO("Executing Call back");
-
         //set_status(FAILURE);
 
         if (as_.isPreemptRequested())
@@ -124,11 +130,22 @@ public:
     
         if (person_point == false) 
         {
+            if(publish_once == true)
+            {
+                feedback_msg.data = "Finding Person";
+                pub_feedback.publish(feedback_msg);
+                publish_once = false;
+            }
+            
             while(person_point == false)
             {
                 msg.angular.z = 0.1;   //0.3 for simulations if the robot moves too slow
                 pub_vel.publish(msg);
             }
+            
+            feedback_msg.data = "Person Found";
+            pub_feedback.publish(feedback_msg);
+
             msg.angular.z = 0.0;
             pub_vel.publish(msg);
             msg.angular.z = 0.0;
@@ -140,6 +157,8 @@ public:
             //person_point = true;
            // count = 0;
             set_status(SUCCESS);
+            feedback_msg.data = "";
+            publish_once = true;
         }
 
         else
