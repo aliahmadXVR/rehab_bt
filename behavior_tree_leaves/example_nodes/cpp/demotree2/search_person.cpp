@@ -52,7 +52,7 @@ protected:
     geometry_msgs::Twist msg;
     std_msgs::String feedback_msg;
     bool publish_once = true;
-
+    bool person_distance_threshold_high = false; // Initial false 
 
 
  public:
@@ -86,11 +86,23 @@ protected:
 
     void cameraCallBack(const geometry_msgs::PointStamped::ConstPtr &ptr)
     {
+        //Unit Conversion: 6ft = 1828mm//
+
+
         if (ptr->point.x != -9999 || ptr->point.y != -9999 || ptr->point.z != -9999)
         {
            person_point = true; 
            ROS_INFO("Got Person Point");
- 
+           
+           if(ptr->point.z  > 1828 && ptr->point.z  < 3600 )
+           {
+             person_distance_threshold_high = true;
+           }
+           else
+           {
+            person_distance_threshold_high = false;
+           }
+
         }
         else 
         {
@@ -146,6 +158,11 @@ protected:
             feedback_msg.data = "Person Found";
             pub_feedback.publish(feedback_msg);
 
+            while (person_distance_threshold_high == true)
+            {
+                msg.linear.x = 0.1;
+                pub_vel.publish(msg);
+            }
             msg.angular.z = 0.0;
             pub_vel.publish(msg);
             msg.angular.z = 0.0;
@@ -154,8 +171,7 @@ protected:
             pub_vel.publish(msg);
             msg.angular.z = 0.0;
             pub_vel.publish(msg);
-            //person_point = true;
-           // count = 0;
+
             set_status(SUCCESS);
             feedback_msg.data = "";
             publish_once = true;
