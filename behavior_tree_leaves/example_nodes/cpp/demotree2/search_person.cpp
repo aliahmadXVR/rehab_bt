@@ -72,8 +72,8 @@ protected:
 
     ros::Subscriber point_sub = nh_.subscribe("/person_loc",1000, &BTAction::cameraCallBack,this);
     
-    //ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 1000); //For Actual Hardware
-    ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 1000); //For simulation only
+    ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 1000); //For Actual Hardware
+    //ros::Publisher pub_vel = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 1000); //For simulation only
     
     
     ros::Publisher pub_feedback = nh_.advertise<std_msgs::String>("/feedback_to_tablet", 1000); //Publsiher for Feedback to Tablet
@@ -94,7 +94,7 @@ protected:
            person_point = true; 
            ROS_INFO("Got Person Point");
            
-           if(ptr->point.z  > 1828 && ptr->point.z  < 3600 )
+           if(ptr->point.z  > 1828 )
            {
              person_distance_threshold_high = true;
            }
@@ -151,6 +151,7 @@ protected:
             
             while(person_point == false)
             {
+                msg.linear.x = 0.0;
                 msg.angular.z = 0.1;   //0.3 for simulations if the robot moves too slow
                 pub_vel.publish(msg);
             }
@@ -160,21 +161,36 @@ protected:
 
             while (person_distance_threshold_high == true)
             {
+                msg.angular.z = 0;
                 msg.linear.x = 0.1;
                 pub_vel.publish(msg);
             }
+            msg.linear.x = 0.0;
             msg.angular.z = 0.0;
             pub_vel.publish(msg);
-            msg.angular.z = 0.0;
-            pub_vel.publish(msg);
-            msg.angular.z = 0.0;
-            pub_vel.publish(msg);
-            msg.angular.z = 0.0;
-            pub_vel.publish(msg);
+            // msg.angular.z = 0.0;
+            // pub_vel.publish(msg);
+            // msg.angular.z = 0.0;
+            // pub_vel.publish(msg);
+            // msg.angular.z = 0.0;
+            // pub_vel.publish(msg);
 
             set_status(SUCCESS);
             feedback_msg.data = "";
             publish_once = true;
+        }
+
+        else if (person_point == true) //in case person is already in range
+        {
+            while (person_distance_threshold_high == true)
+            {
+                msg.angular.z = 0;
+                msg.linear.x = 0.1;
+                pub_vel.publish(msg);
+            }
+            msg.linear.x = 0.0;
+            msg.angular.z = 0.0;
+            set_status(SUCCESS);
         }
 
         else
