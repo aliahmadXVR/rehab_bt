@@ -27,7 +27,8 @@
 #include<sstream>
 #include<vector>
 
-// using namespace std;
+
+//using namespace std;
 
 enum Status {RUNNING, SUCCESS, FAILURE};
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
@@ -47,7 +48,8 @@ protected:
     bool hey_msg;
     int count = 0;
     geometry_msgs::Twist msg;
-    
+    std_msgs::Int16 msg2;
+    std_msgs::String hello_msg;
 
 public:
 
@@ -63,27 +65,42 @@ public:
 
     }
 
-    ros::Subscriber sub = nh_.subscribe("hello_scenario", 1000, &BTAction::conditionSetCallback, this);
+    //ros::Subscriber sub = nh_.subscribe("hello_scenario", 1000, &BTAction::conditionSetCallback, this); //Used with old application. Not used any more
+    ros::Subscriber sub = nh_.subscribe("cmd_frm_tablet", 1000, &BTAction::conditionSetCallback, this);
 
     ~BTAction(void)
     { }
 
     void conditionSetCallback(const std_msgs::String::ConstPtr& msg)
     {    
-
         std::string my_str = msg->data;
-        // if(my_str == "hey,ruyi")
-        if(my_str == "hello")
+        std::vector<std::string> result;
+        std::stringstream s_stream(my_str); //create string stream from the string
+
+        while(s_stream.good()) 
+        {
+            std::string substr;
+            getline(s_stream, substr, ','); //get first string delimited by comma
+            result.push_back(substr);
+        }
+
+        //cout<<"Location ID: "<<result.at(4) << endl;
+        //msg2.data = atoi(result.at(4).c_str());
+
+        std::string hello_str = result.at(1).c_str();
+        //std::string my_str = msg->data;
+
+        if(hello_str == "hello")
         {
             hey_msg = true;
             ROS_INFO("Hey Ruyi string True");
-            my_str = "";
+            hello_str = "";
         }
         else 
         {
             hey_msg = false;
             ROS_INFO("Hey Ruyi string False");
-            my_str = "";
+            hello_str = "";
         }
 
     }
@@ -105,7 +122,7 @@ public:
                 //ac.cancelGoal();
                 //ROS_INFO("Canceling All Goals");
                 set_status(SUCCESS);
-                hey_msg == false;
+                hey_msg = false;
             }
         
             ROS_INFO("**Rotating the Robot to find the person");

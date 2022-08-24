@@ -71,11 +71,11 @@
 <node name="GoToTvroom_f"       pkg="behavior_tree_leaves"  type="GoToTvroom_f"           output="screen"       /> 
 <node name="GoTobedRoom_f"      pkg="behavior_tree_leaves"  type="GoTobedRoom_f"          output="screen"       /> 
 
-<node name="navi_to_H"        pkg="behavior_tree_leaves"  type="navi_to_H"            output="screen"   /> 
+<node name="navi_to_H"          pkg="behavior_tree_leaves"  type="navi_to_H"            output="screen"   /> 
 
 <node name="heyRuyi_cmd"        pkg="behavior_tree_leaves"  type="heyRuyi_cmd"        output="screen"   />
-<node name="search_person"      pkg="behavior_tree_leaves"  type="search_person"        output="screen" />
-<node name="get_and_map_key"    pkg="key_pub"               type="get_and_map_key"    output="screen" />
+<node name="search_person"      pkg="behavior_tree_leaves"  type="search_person"      output="screen" />
+<!-- <node name="get_and_map_key"    pkg="key_pub"               type="get_and_map_key"    output="screen" /> -->
 
 <!-- <remap from="/cmd_vel" to="/mobile_base_controller/cmd_vel"/> -->
 

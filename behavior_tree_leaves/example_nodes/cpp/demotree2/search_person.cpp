@@ -96,8 +96,8 @@ protected:
         //Unit Conversion: 6ft = 1828mm//
 
 
-        //if (ptr->point.x != -9999 || ptr->point.y != -9999 || ptr->point.z != -9999)
-        if (ptr->point.x > -610 && ptr->point.x < 610)
+        // if (ptr->point.x != -9999 || ptr->point.y != -9999 || ptr->point.z != -9999)
+        if (ptr->point.x > -920 && ptr->point.x < 920)
         {
            person_point = true; 
            ROS_INFO("Got Person Point");
@@ -185,16 +185,16 @@ protected:
             while(person_point == false)
             {
                 msg.linear.x = 0.0;
-                msg.angular.z = 0.2;   //0.3 for simulations if the robot moves too slow
+                msg.angular.z = 0.1;   //0.3 for simulations if the robot moves too slow
                 pub_vel.publish(msg);
 
-                ros::Duration(1.5).sleep();
+                // ros::Duration(1.5).sleep();
 
-                msg.linear.x = 0.0;
-                msg.angular.z = 0.0;   //0.3 for simulations if the robot moves too slow
-                pub_vel.publish(msg);  
+                // msg.linear.x = 0.0;
+                // msg.angular.z = 0.0;   //0.3 for simulations if the robot moves too slow
+                // pub_vel.publish(msg);  
 
-                ros::Duration(1.5).sleep();
+                // ros::Duration(1.5).sleep();
 
             }
             
@@ -221,8 +221,8 @@ protected:
 
             while (person_distance_threshold_high == true)
             {
-                feedback_msg.data = "Moving towards person";
-                pub_feedback.publish(feedback_msg);
+                // feedback_msg.data = "Moving towards person";
+                // pub_feedback.publish(feedback_msg);
                 msg.angular.z = 0;
                 msg.linear.x = 0.1;
                 pub_vel.publish(msg);
