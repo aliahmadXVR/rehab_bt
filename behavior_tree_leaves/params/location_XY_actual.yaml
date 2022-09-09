@@ -17,25 +17,20 @@ entrance: {
 } 
 
 # Below need to be mofified
-# lobby: {
-#     x: -4.0,
-#     y: 3.2,
-# }
+lobby: {
+    x: -3.4,
+    y: 3.2,
+}
 
-# tvRoom: {
-#      x: -8.3,
-#      y: -1.3,
-# }
+tvRoom: {
+     x: -5.9,
+     y: -1.34,
+}
 
-# bedRoom: {
-#      x: -8.5,
-#      y: 2.9,
-# }
-
-# bathRoom: {
-#      x: -3.5,
-#      y: 5.29,
-# }
+bedRoom: {
+     x: -6.0,
+     y: 3.0,
+}
 
 dock: {
      x: 0.60,
