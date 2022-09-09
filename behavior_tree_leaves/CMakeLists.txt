@@ -425,6 +425,15 @@ add_dependencies(
   behavior_tree_core_generate_messages_cpp
 )
 
+add_executable(search_person_wn example_nodes/cpp/demotree2/search_person_wn.cpp)
+target_link_libraries(search_person_wn  ${catkin_LIBRARIES})
+add_dependencies(
+  search_person_wn
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
 ###--------------------------------------------------
 
 ###---------For Fall Hazard Scan----------------------

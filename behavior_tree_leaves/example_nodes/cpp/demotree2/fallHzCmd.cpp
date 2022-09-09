@@ -43,7 +43,7 @@ public:
         ROS_INFO("Condition Server Started");
     }
 
-    ros::Subscriber sub = nh_.subscribe("cmd_frm_tablet", 1000, &BTAction::conditionSetCallback, this);
+    ros::Subscriber sub = nh_.subscribe("cmd_frm_tablet_int", 1000, &BTAction::conditionSetCallback, this);
 
 
     ~BTAction(void)

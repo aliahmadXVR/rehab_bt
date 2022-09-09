@@ -55,8 +55,7 @@ protected:
     bool person_distance_threshold_high = false; // Initial false 
     geometry_msgs::PointStamped person_loc_in_MAP;
     bool person_inside_map = false;
-    int person_inside_map_counter = 0;
-    bool goal_assigned = false;
+    bool assign_goal = false;
 
  public:
 
@@ -98,11 +97,11 @@ protected:
         //Unit Conversion: 6ft = 1828mm//
 
 
-         if (ptr->point.x != -9999 || ptr->point.y != -9999 || ptr->point.z != -9999)
-        //if (ptr->point.x > -920 && ptr->point.x < 920)
+         //if (ptr->point.x != -9999 || ptr->point.y != -9999 || ptr->point.z != -9999)
+        if (ptr->point.x > -920 && ptr->point.x < 920)
         {
            person_point = true; 
-           //ROS_INFO("Got Person Point");
+           ROS_INFO("Got Person Point");
            
            if(ptr->point.z  > 1828 )
            {
@@ -111,21 +110,15 @@ protected:
            else
            {
             person_distance_threshold_high = false;
-
-            if(goal_assigned == true)
-            {
-                ac.cancelGoal();
-                ROS_INFO("Canceling All Goals");
-                goal_assigned = false;
-            }
-             
+            // ac.cancelGoal();
+            // ROS_INFO("Canceling All Goals");
            }
 
         }
         else 
         {
            person_point = false; 
-           //ROS_INFO("Person Point False");
+           ROS_INFO("Person Point False");
         }
     }
 
@@ -135,23 +128,14 @@ protected:
     {
         if(ptr->person_location != "Away")
         {
-            //std::cout<<"person detected!!!!!!!!!"<<std::endl;
-            // person_inside_map = true;
-            person_inside_map_counter++;
+            std::cout<<"person detected!!!!!!!!!"<<std::endl;
+            person_inside_map = true;
         }
 
         else
         {
-            //person_inside_map = false;
-            person_inside_map_counter = 0;
-        } 
-
-        if(person_inside_map_counter >= 3)
-            person_inside_map = true;
-
-        else 
             person_inside_map = false;
-
+        } 
 
     }
 
@@ -165,6 +149,8 @@ protected:
             person_loc_in_MAP.point.z = ptr->point.z;
 
         }
+
+
     }
 
     void execute_callback(const behavior_tree_core::BTGoalConstPtr &goal)
@@ -178,7 +164,7 @@ protected:
 
             // set the action state to preempted
             as_.setPreempted();
-            ac.cancelGoal();
+            //ac.cancelGoal();
             //ROS_INFO("Canceling All Goals");
             msg.angular.z = 0.0;
             pub_vel.publish(msg);
@@ -195,104 +181,64 @@ protected:
     
         ROS_INFO("**Rotating the Robot to find the person");
     
-        if (person_inside_map == false) 
+        if (person_point == false) 
         {
             if(publish_once == true)
             {
-
                 feedback_msg.data = "Finding Person";
                 pub_feedback.publish(feedback_msg);
                 publish_once = false;
             }
             
-            while(person_inside_map == false)
+            while(person_point == false)
             {
                 msg.linear.x = 0.0;
                 msg.angular.z = 0.1;   //0.3 for simulations if the robot moves too slow
                 pub_vel.publish(msg);
-                ROS_INFO("Rotating & Finding person");
+
             }
             
             feedback_msg.data = "Person Found";
             pub_feedback.publish(feedback_msg);
-            ROS_INFO("Person Found");
 
-            ros::Duration(2.0).sleep();
-            if (person_inside_map == true )
+
+            while (person_distance_threshold_high == true)
             {
-                // Give goal of the Person to the robot
-                move_base_goal.target_pose.header.frame_id = "map";
-                move_base_goal.target_pose.header.stamp = ros::Time::now();
-
-                move_base_goal.target_pose.pose.position.x = person_loc_in_MAP.point.x;
-                move_base_goal.target_pose.pose.position.y = person_loc_in_MAP.point.y;
-                move_base_goal.target_pose.pose.orientation.w = 1.0;
-
-                goal_assigned = true;
-
-                std::cout<<"X= "<<move_base_goal.target_pose.pose.position.x<<std::endl;
-                std::cout<<"Y= "<<move_base_goal.target_pose.pose.position.y<<std::endl;
-                std::cout<<"Z= "<<move_base_goal.target_pose.pose.position.z<<std::endl;
-                ROS_INFO("**Sending Person Location goal 1, Person initially not in MAP");
-                ac.sendGoal(move_base_goal);
-
-                feedback_msg.data = "Goal Sent 1";
+                feedback_msg.data = "Moving towards person";
                 pub_feedback.publish(feedback_msg);
-                ac.waitForResult();
+                msg.angular.z = 0;
+                msg.linear.x = 0.1;
+                pub_vel.publish(msg); 
 
             }
-            
-            ROS_INFO("Goal Reached 1");
             ac.cancelGoal();
-            feedback_msg.data = "Goal Reached 1";
-            pub_feedback.publish(feedback_msg);
+            msg.linear.x = 0.0;
+            msg.angular.z = 0.0;
+            pub_vel.publish(msg); //uncomment for direct velocity publishing
+
             set_status(SUCCESS);
             feedback_msg.data = "";
             publish_once = true;
         }
 
-        else if (person_inside_map == true) //if person already in map 
+        else if (person_point == true) //in case person is already in range
         {
+            while (person_distance_threshold_high == true)
+            {
+                msg.angular.z = 0;
+                msg.linear.x = 0.1;
+                pub_vel.publish(msg);
+            }
+            msg.linear.x = 0.0;
+            msg.angular.z = 0.0;
 
-            // Give goal of the Person to the robot
-            move_base_goal.target_pose.header.frame_id = "map";
-            move_base_goal.target_pose.header.stamp = ros::Time::now();
-
-            move_base_goal.target_pose.pose.position.x = person_loc_in_MAP.point.x;
-            move_base_goal.target_pose.pose.position.y = person_loc_in_MAP.point.y;
-            move_base_goal.target_pose.pose.orientation.w = 1.0;
-            goal_assigned = true;
-            ROS_INFO("**Sending Person Location goal 2, Person Already in MAP ");
-            ac.sendGoal(move_base_goal);
-            ac.waitForResult();
-            std::cout<<"X= "<<move_base_goal.target_pose.pose.position.x<<std::endl;
-            std::cout<<"Y= "<<move_base_goal.target_pose.pose.position.y<<std::endl;
-            std::cout<<"Z= "<<move_base_goal.target_pose.pose.position.z<<std::endl;
-
-            feedback_msg.data = "Goal Sent 2";
-            pub_feedback.publish(feedback_msg);
             set_status(SUCCESS);
-            feedback_msg.data = "";
-            publish_once = true;
         }
 
         else
         {
             set_status(FAILURE);   //set_status(SUCCESS);
         }
-
-
-        // while (goal_assigned == true)
-        // {
-        //     ROS_INFO("now waiting if person is inside 6 feet");
-        //     if(person_distance_threshold_high == false)
-        //     {   
-        //         ROS_INFO("**Cancelling Goal, Now person inside 6 feet");
-        //         ac.cancelGoal();
-        //         set_status(SUCCESS);
-        //         goal_assigned = false;
-        //     }
-        // }
     }
 
     //  returns the status to the client (Behavior Tree)
@@ -323,7 +269,7 @@ protected:
 int main(int argc, char** argv)
 {
     
-    ros::init(argc, argv, "search_person");
+    ros::init(argc, argv, "search_person_wn");
     ROS_INFO(" Enum: %d", RUNNING);
     ROS_INFO(" search_person condition Ready for Ticks");
     BTAction bt_action(ros::this_node::getName());
@@ -331,7 +277,3 @@ int main(int argc, char** argv)
     ros::spin();
     return 0;
 }
-
-
-
-
