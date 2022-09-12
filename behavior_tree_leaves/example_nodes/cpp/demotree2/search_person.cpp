@@ -253,27 +253,32 @@ protected:
 
         else if (person_inside_map == true) //if person already in map 
         {
+            ros::Duration(2.0).sleep();
 
-            // Give goal of the Person to the robot
-            move_base_goal.target_pose.header.frame_id = "map";
-            move_base_goal.target_pose.header.stamp = ros::Time::now();
+            if(person_inside_map == true)
+            {
+                // Give goal of the Person to the robot
+                move_base_goal.target_pose.header.frame_id = "map";
+                move_base_goal.target_pose.header.stamp = ros::Time::now();
 
-            move_base_goal.target_pose.pose.position.x = person_loc_in_MAP.point.x;
-            move_base_goal.target_pose.pose.position.y = person_loc_in_MAP.point.y;
-            move_base_goal.target_pose.pose.orientation.w = 1.0;
-            goal_assigned = true;
-            ROS_INFO("**Sending Person Location goal 2, Person Already in MAP ");
-            ac.sendGoal(move_base_goal);
-            ac.waitForResult();
-            std::cout<<"X= "<<move_base_goal.target_pose.pose.position.x<<std::endl;
-            std::cout<<"Y= "<<move_base_goal.target_pose.pose.position.y<<std::endl;
-            std::cout<<"Z= "<<move_base_goal.target_pose.pose.position.z<<std::endl;
+                move_base_goal.target_pose.pose.position.x = person_loc_in_MAP.point.x;
+                move_base_goal.target_pose.pose.position.y = person_loc_in_MAP.point.y;
+                move_base_goal.target_pose.pose.orientation.w = 1.0;
+                goal_assigned = true;
+                ROS_INFO("**Sending Person Location goal 2, Person Already in MAP ");
+                ac.sendGoal(move_base_goal);
+                ac.waitForResult();
+                std::cout<<"X= "<<move_base_goal.target_pose.pose.position.x<<std::endl;
+                std::cout<<"Y= "<<move_base_goal.target_pose.pose.position.y<<std::endl;
+                std::cout<<"Z= "<<move_base_goal.target_pose.pose.position.z<<std::endl;
 
-            feedback_msg.data = "Goal Sent 2";
-            pub_feedback.publish(feedback_msg);
-            set_status(SUCCESS);
-            feedback_msg.data = "";
-            publish_once = true;
+                feedback_msg.data = "Goal Sent 2";
+                pub_feedback.publish(feedback_msg);
+                set_status(SUCCESS);
+                feedback_msg.data = "";
+                publish_once = true;
+            }
+            
         }
 
         else
