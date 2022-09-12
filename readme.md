@@ -3,21 +3,30 @@
 
 
 ## Overview
-This package contains the behavior tree based Rehab robot control framework. The baseline of this implementation can be found [here](https://github.com/miccol/ROS-Behavior-Tree.git). Reading material can be seen in this [document](/home/ali-ahmed/catkin_ws/src/rehab_bt/BTUserManual.pdf) for basics of Behavior trees. The aim to develop behavior tree based framework is to enable the robot perform different actions and to respond to user commands. The interconnection of mobile tablet on the robot with ROS will enable 
+This package contains the behavior tree based Rehab robot control framework. The baseline of this implementation can be found [here](https://github.com/miccol/ROS-Behavior-Tree.git). Reading material can be seen in this [document](/home/ali-ahmed/catkin_ws/src/rehab_bt/BTUserManual.pdf) for basics of Behavior trees. The aim to develop behavior tree based framework is to enable the robot perform different actions and to respond to user commands. The interconnection of mobile tablet on the robot with ROS will enable user given voice commands to trigger the actions on the robot.
 
 
-As a first implementation, a basic scenerio is implemented in this repository. A basic block diagram of overall system is shown below:
+As a first implementation, a basic "Hello" scenerio has been implemented in this repository. A basic block diagram of overall system is shown below which shows the different system blocks and their interconnection:
 
 
 ![overall-system-image](images/Basic_comm_concept.png)
 
-In this repository, a basic demo has been implementated. Two basic actions (battery check & Go to a location) have been implemented and tested on actual robot. A basic flow chart of the tree and the tree diagram (in terms of behavior diagram) has been shown below. 
-
-![tree-flow](images/tree_flow.png)
+In this repository, a behavior tree implementation has been done. There are majorly three behaviors implemented which include battery failure fallback, Goto command, fall hazard behavior and a hello response behavior. An overall tree connection along with individual trees are shown below in images. 
 
 
-![demo2-tree](images/demo2_tree.png)
+![overall-tree](images/complete_tree.jpg)
 
+
+![Batt-tree](images/batt_tree.jpg)
+
+
+![Batt-tree](images/fall_haz_tree.jpg)
+
+
+![Batt-tree](images/goto_tree.jpg)
+
+
+![Batt-tree](images/hey_ruyi_tree.jpg)
 
 
 ## Pre-Requisites
