@@ -17,18 +17,6 @@ In this repository, a behavior tree implementation has been done. There are majo
 ![overall-tree](images/complete_tree.jpg)
 
 
-<!-- ![Batt-tree](images/batt_tree.jpg)
-
-
-![Batt-tree](images/fall_haz_tree.jpg)
-
-
-![Batt-tree](images/goto_tree.jpg)
-
-
-![Batt-tree](images/hey_ruyi_tree.jpg) -->
-
-
 ## Hello Scenerio 
 
 ### Pre-Requisites
@@ -63,7 +51,7 @@ After following the above setup process, run the following nodes:
    ``` 
    You must see the rosparameters and the running ros nodes in the terminal as shown below in the image. 
 
-   ![roslaunch_tree_nodes](images/running_tree_launch.png)
+   ![roslaunch_tree_nodes](images/BT_nodes.png)
 
 
 2. Run the following to run the main node, 
@@ -73,7 +61,7 @@ After following the above setup process, run the following nodes:
    ```
    This node will run the tree algorithm and check for all the tree nodes that are running and will execute the behavior accordingly. You must see the status of different nodes printed on the terminal. This shows that the node is running error free.See the image below for reference. 
    
-   ![roslaunch_tree_nodes](images/tree_running.png)
+   ![roslaunch_tree_nodes](images/BT_main.png)
 
 3. After the step 2, the Behavior tree nodes are up and running. Now the CUI inputs are required to trigger the respective behaviors. Currently in this scope only the "Hello Scenerio" is discussed. 
 4. To trigger the hello scenerio, press the Microphone enable button and Say "Hey Ruyi Or Hello Ruyi". The Hello behavior will be triggered and the robot will start rotating untill it finds the person standing in front of it. The robot will stop rotating when it will find the person and will move within 6 feet vicinity of the person.  
