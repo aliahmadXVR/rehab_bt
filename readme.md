@@ -3,7 +3,7 @@
 
 
 ## Overview
-This package contains the behavior tree based Rehab robot control framework. The baseline of this implementation can be found [here](https://github.com/miccol/ROS-Behavior-Tree.git). Reading material can be seen in this [document](/home/ali-ahmed/catkin_ws/src/rehab_bt/BTUserManual.pdf) for basics of Behavior trees. The aim to develop behavior tree based framework is to enable the robot perform different actions and to respond to user commands. The interconnection of mobile tablet on the robot with ROS will enable user given voice commands to trigger the actions on the robot.
+This package contains the behavior tree based Rehab robot control framework. The baseline of this implementation can be found [here](https://github.com/miccol/ROS-Behavior-Tree.git). The aim to develop behavior tree based framework is to enable the robot perform different actions and to respond to user commands. The interconnection of mobile tablet on the robot with ROS will enable user given voice commands to trigger the actions on the robot.
 
 
 As a first implementation, a basic "Hello" scenerio has been implemented in this repository. A basic block diagram of overall system is shown below which shows the different system blocks and their interconnection:
