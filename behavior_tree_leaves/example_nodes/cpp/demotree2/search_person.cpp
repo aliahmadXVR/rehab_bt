@@ -286,18 +286,6 @@ protected:
             set_status(FAILURE);   //set_status(SUCCESS);
         }
 
-
-        // while (goal_assigned == true)
-        // {
-        //     ROS_INFO("now waiting if person is inside 6 feet");
-        //     if(person_distance_threshold_high == false)
-        //     {   
-        //         ROS_INFO("**Cancelling Goal, Now person inside 6 feet");
-        //         ac.cancelGoal();
-        //         set_status(SUCCESS);
-        //         goal_assigned = false;
-        //     }
-        // }
     }
 
     //  returns the status to the client (Behavior Tree)
