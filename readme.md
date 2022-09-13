@@ -46,7 +46,9 @@ After following the step 2 in the pre-requisites, you must have the following in
 
 * Robot must be running navigation. Verify that the navigation stack is running & the robot is able to navigate by accepting goal from *RVIZ*. 
 
-* AI model must be returning the person position on ```person_loc``` & ```person_loc_estimated``` ROS topic.
+* AI model must be returning the person position on ```person_loc``` ROS topic.
+
+* ```rehab_person_loc``` must be returning the person positon in MAP frame on ```person_loc_estimated``` ROS topic.
 
 * Mobile app must be running and publishing commands on the ROS topic ```cmd_frm_tablet```.
 
