@@ -493,3 +493,24 @@ add_dependencies(
 )
   ###--------------------------------------------------
 
+
+###--------------------------------------------------
+### For Demo 3 
+add_executable(GoTo_cmd example_nodes/cpp/demotree3/GoTo_cmd.cpp)
+target_link_libraries(GoTo_cmd  ${catkin_LIBRARIES})
+add_dependencies(
+  GoTo_cmd
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(GoTo_behav example_nodes/cpp/demotree3/GoTo_behav.cpp)
+target_link_libraries(GoTo_behav  ${catkin_LIBRARIES})
+add_dependencies(
+  GoTo_behav
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+###--------------------------------------------------

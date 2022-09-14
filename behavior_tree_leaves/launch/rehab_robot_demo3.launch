@@ -1,0 +1,36 @@
+<launch>
+
+<arg name="using_sim" default="true" />
+
+<!-- In Case of simulation, the Xterm windows will open for each node for debug purpose -->
+<group if="$(eval arg('using_sim') == true)">
+
+<rosparam param="using_sim">true</rosparam>
+
+<rosparam file="$(find behavior_tree_leaves)/params/location_XY_sim.yaml" />
+
+<node name="GoTo_cmd"        pkg="behavior_tree_leaves"  type="GoTo_cmd"           output="screen" />
+<node name="GoTo_behav"      pkg="behavior_tree_leaves"  type="GoTo_behav"         output="screen" launch-prefix="xterm -e" /> 
+<node name="batteryOK"       pkg="behavior_tree_leaves"  type="batteryOK"          output="screen" /> 
+<node name="heyRuyi_cmd"     pkg="behavior_tree_leaves"  type="heyRuyi_cmd"        output="screen" />
+<node name="search_person"   pkg="behavior_tree_leaves"  type="search_person"      output="screen" />
+
+
+</group>
+
+<!-- In case of actual robot, the Xterm terminal will not open -->
+<group if="$(eval arg('using_sim') == false)">
+
+<rosparam file="$(find behavior_tree_leaves)/params/location_XY_actual.yaml" />
+
+<node name="navCmd_d3"        pkg="behavior_tree_leaves"  type="navCmd_d3"          output="screen" />
+<node name="GoToKit_d3"       pkg="behavior_tree_leaves"  type="GoToKit_d3"         output="screen" /> 
+<node name="batteryOK"        pkg="behavior_tree_leaves"  type="batteryOK"          output="screen" /> 
+<node name="heyRuyi_cmd"      pkg="behavior_tree_leaves"  type="heyRuyi_cmd"        output="screen" />
+<node name="search_person"    pkg="behavior_tree_leaves"  type="search_person"      output="screen" />
+
+</group>
+</launch>
+
+<!-- Use this command for seperate window-->
+<!--launch-prefix="xterm -e"--> 

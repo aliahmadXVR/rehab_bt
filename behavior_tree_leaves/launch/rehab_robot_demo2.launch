@@ -20,7 +20,7 @@
 <node name="bedRoomcmd"       pkg="behavior_tree_leaves"  type="bedRoomcmd"           output="screen" />
 
 <node name="batteryOK"        pkg="behavior_tree_leaves"  type="batteryOK"            output="screen"    /> 
-<node name="GoToKit"          pkg="behavior_tree_leaves"  type="GoToKit"              output="screen"    /> 
+<node name="GoToKit"          pkg="behavior_tree_leaves"  type="GoToKit"              output="screen"   launch-prefix="xterm -e" /> 
 <node name="GoTolounge"       pkg="behavior_tree_leaves"  type="GoTolounge"           output="screen"    /> 
 <node name="GoToEntrance"     pkg="behavior_tree_leaves"  type="GoToEntrance"         output="screen"    />
 <node name="GoToLobby"        pkg="behavior_tree_leaves"  type="GoToLobby"            output="screen"    /> 
@@ -35,8 +35,8 @@
 <node name="GoTobedRoom_f"      pkg="behavior_tree_leaves"  type="GoTobedRoom_f"      output="screen"    /> 
 <node name="navi_to_H"          pkg="behavior_tree_leaves"  type="navi_to_H"          output="screen"    /> 
 
-<node name="heyRuyi_cmd"        pkg="behavior_tree_leaves"  type="heyRuyi_cmd"        output="screen" launch-prefix="xterm -e"/>
-<node name="search_person"      pkg="behavior_tree_leaves"  type="search_person"      output="screen" launch-prefix="xterm -e"/>
+<node name="heyRuyi_cmd"        pkg="behavior_tree_leaves"  type="heyRuyi_cmd"        output="screen" />
+<node name="search_person"      pkg="behavior_tree_leaves"  type="search_person"      output="screen" />
 
 
 </group>
