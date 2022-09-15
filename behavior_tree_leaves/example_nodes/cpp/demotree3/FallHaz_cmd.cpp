@@ -57,7 +57,7 @@ public:
 
     void execute_callback(const behavior_tree_core::BTGoalConstPtr &goal)
     {
-        if (input_key.data==1)
+        if (input_key.data ==8 )
         {
             set_status(FAILURE);
         }
@@ -97,9 +97,9 @@ public:
 int main(int argc, char** argv)
 {
     
-    ros::init(argc, argv, "kitCmd");
+    ros::init(argc, argv, "FallHaz_cmd");
     ROS_INFO(" Enum: %d", RUNNING);
-    ROS_INFO(" NavCmd condition Ready for Ticks");
+    ROS_INFO(" fallHzCmd condition Ready for Ticks");
     BTAction bt_action(ros::this_node::getName());
     ros::spin();
     return 0;

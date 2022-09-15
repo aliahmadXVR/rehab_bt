@@ -38,6 +38,7 @@ protected:
     enum LOC_TAG{kitchen_loc=1, lounge_loc=2, entrance_loc=3, lobby_loc=4, tvRoom_loc=5, bedRoom_loc=6, away_loc=7};
     std_msgs::Int16 location_tag;
     bool goal_assigned = false;
+    int location_count = 1;
 
     struct loc_coord
     {
@@ -78,133 +79,9 @@ public:
     }
     
     //Subscribe to the command from the tablet
-    ros::Subscriber sub = nh_.subscribe("cmd_frm_tablet", 1000, &BTAction::conditionSetCallback, this);
-
 
     ~BTAction(void)
     {}
-
-    void conditionSetCallback(const std_msgs::Int16& msg)
-    {    
-        switch (msg.data)
-        {
-            case 1:
-
-            if(goal_assigned ==true) //if goal is already assigned, first cancel it
-            {
-                ac.cancelGoal();
-                ROS_INFO("Canceling All Goals");
-                goal_assigned = false;
-            }
-            move_base_goal.target_pose.header.frame_id = "map";
-            move_base_goal.target_pose.header.stamp = ros::Time::now();
-            move_base_goal.target_pose.pose.position.x = goto_location.kitchen.pose.position.x;
-            move_base_goal.target_pose.pose.position.y = goto_location.kitchen.pose.position.y;
-            //For now fixing the z and the heading//
-            move_base_goal.target_pose.pose.position.z = 0.0;
-            move_base_goal.target_pose.pose.orientation.w = 1.0;
-            ROS_INFO("** Going to Kitchen");
-            goal_assigned = true;
-            break;
-            
-            case 2:
-            if(goal_assigned ==true) //if goal is already assigned, first cancel it
-            {
-                ac.cancelGoal();
-                ROS_INFO("Canceling All Goals");
-                goal_assigned = false;
-            }
-            move_base_goal.target_pose.header.frame_id = "map";
-            move_base_goal.target_pose.header.stamp = ros::Time::now();
-            move_base_goal.target_pose.pose.position.x = goto_location.lounge.pose.position.x;
-            move_base_goal.target_pose.pose.position.y = goto_location.lounge.pose.position.y;
-            //For now fixing the z and the heading//
-            move_base_goal.target_pose.pose.position.z = 0.0;
-            move_base_goal.target_pose.pose.orientation.w = 1.0;
-            ROS_INFO("** Going to lounge");
-            goal_assigned = true;
-            break;
-
-            case 3:
-            if(goal_assigned ==true) //if goal is already assigned, first cancel it
-            {
-                ac.cancelGoal();
-                ROS_INFO("Canceling All Goals");
-                goal_assigned = false;
-            }
-            move_base_goal.target_pose.header.frame_id = "map";
-            move_base_goal.target_pose.header.stamp = ros::Time::now();
-            move_base_goal.target_pose.pose.position.x = goto_location.entrance.pose.position.x;
-            move_base_goal.target_pose.pose.position.y = goto_location.entrance.pose.position.y;
-            //For now fixing the z and the heading//
-            move_base_goal.target_pose.pose.position.z = 0.0;
-            move_base_goal.target_pose.pose.orientation.w = 1.0;
-            ROS_INFO("** Going to entrance");
-            goal_assigned = true;
-            break;          
-
-            case 4:
-            if(goal_assigned ==true) //if goal is already assigned, first cancel it
-            {
-                ac.cancelGoal();
-                ROS_INFO("Canceling All Goals");
-                goal_assigned = false;
-            }
-            move_base_goal.target_pose.header.frame_id = "map";
-            move_base_goal.target_pose.header.stamp = ros::Time::now();
-            move_base_goal.target_pose.pose.position.x = goto_location.lobby.pose.position.x;
-            move_base_goal.target_pose.pose.position.y = goto_location.lobby.pose.position.y;
-            //For now fixing the z and the heading//
-            move_base_goal.target_pose.pose.position.z = 0.0;
-            move_base_goal.target_pose.pose.orientation.w = 1.0;
-            ROS_INFO("** Going to lobby");
-            goal_assigned = true;
-            break;
-
-            case 5:
-            if(goal_assigned ==true) //if goal is already assigned, first cancel it
-            {
-                ac.cancelGoal();
-                ROS_INFO("Canceling All Goals");
-                goal_assigned = false;
-            }
-            move_base_goal.target_pose.header.frame_id = "map";
-            move_base_goal.target_pose.header.stamp = ros::Time::now();
-            move_base_goal.target_pose.pose.position.x = goto_location.tvRoom.pose.position.x;
-            move_base_goal.target_pose.pose.position.y = goto_location.tvRoom.pose.position.y;
-            //For now fixing the z and the heading//
-            move_base_goal.target_pose.pose.position.z = 0.0;
-            move_base_goal.target_pose.pose.orientation.w = 1.0;
-            ROS_INFO("** Going to tvRoom");
-            goal_assigned = true;
-            break;
-
-            case 6:
-            if(goal_assigned ==true) //if goal is already assigned, first cancel it
-            {
-                ac.cancelGoal();
-                ROS_INFO("Canceling All Goals");
-                goal_assigned = false;
-            }
-            move_base_goal.target_pose.header.frame_id = "map";
-            move_base_goal.target_pose.header.stamp = ros::Time::now();
-            move_base_goal.target_pose.pose.position.x = goto_location.bedRoom.pose.position.x;
-            move_base_goal.target_pose.pose.position.y = goto_location.bedRoom.pose.position.y;
-            //For now fixing the z and the heading//
-            move_base_goal.target_pose.pose.position.z = 0.0;
-            move_base_goal.target_pose.pose.orientation.w = 1.0;
-            ROS_INFO("** Going to bedRoom");
-            goal_assigned = true;
-            break;
-
-
-            default: 
-            ROS_INFO("** IDLE");      
-            break;
-
-
-        }
-    }
 
     void execute_callback(const behavior_tree_core::BTGoalConstPtr &goal)
     {   
@@ -217,6 +94,101 @@ public:
             as_.setPreempted();
             ac.cancelGoal();
             ROS_INFO("Canceling All Goals");
+        }
+
+        switch (location_count)
+        {
+            case 1:
+
+            move_base_goal.target_pose.header.frame_id = "map";
+            move_base_goal.target_pose.header.stamp = ros::Time::now();
+            move_base_goal.target_pose.pose.position.x = goto_location.kitchen.pose.position.x;
+            move_base_goal.target_pose.pose.position.y = goto_location.kitchen.pose.position.y;
+            //For now fixing the z and the heading//
+            move_base_goal.target_pose.pose.position.z = 0.0;
+            move_base_goal.target_pose.pose.orientation.w = 1.0;
+            ROS_INFO("** Going to Kitchen");
+            goal_assigned = true;
+            location_count = 2;
+            break;
+            
+            case 2:
+
+            move_base_goal.target_pose.header.frame_id = "map";
+            move_base_goal.target_pose.header.stamp = ros::Time::now();
+            move_base_goal.target_pose.pose.position.x = goto_location.lounge.pose.position.x;
+            move_base_goal.target_pose.pose.position.y = goto_location.lounge.pose.position.y;
+            //For now fixing the z and the heading//
+            move_base_goal.target_pose.pose.position.z = 0.0;
+            move_base_goal.target_pose.pose.orientation.w = 1.0;
+            ROS_INFO("** Going to lounge");
+            goal_assigned = true;
+            location_count = 3;
+            break;
+
+            case 3:
+
+            move_base_goal.target_pose.header.frame_id = "map";
+            move_base_goal.target_pose.header.stamp = ros::Time::now();
+            move_base_goal.target_pose.pose.position.x = goto_location.entrance.pose.position.x;
+            move_base_goal.target_pose.pose.position.y = goto_location.entrance.pose.position.y;
+            //For now fixing the z and the heading//
+            move_base_goal.target_pose.pose.position.z = 0.0;
+            move_base_goal.target_pose.pose.orientation.w = 1.0;
+            ROS_INFO("** Going to entrance");
+            goal_assigned = true;
+            location_count = 4;
+            break;          
+
+            case 4:
+
+            move_base_goal.target_pose.header.frame_id = "map";
+            move_base_goal.target_pose.header.stamp = ros::Time::now();
+            move_base_goal.target_pose.pose.position.x = goto_location.lobby.pose.position.x;
+            move_base_goal.target_pose.pose.position.y = goto_location.lobby.pose.position.y;
+            //For now fixing the z and the heading//
+            move_base_goal.target_pose.pose.position.z = 0.0;
+            move_base_goal.target_pose.pose.orientation.w = 1.0;
+            ROS_INFO("** Going to lobby");
+            goal_assigned = true;
+            location_count = 5;
+            break;
+
+            case 5:
+
+            move_base_goal.target_pose.header.frame_id = "map";
+            move_base_goal.target_pose.header.stamp = ros::Time::now();
+            move_base_goal.target_pose.pose.position.x = goto_location.tvRoom.pose.position.x;
+            move_base_goal.target_pose.pose.position.y = goto_location.tvRoom.pose.position.y;
+            //For now fixing the z and the heading//
+            move_base_goal.target_pose.pose.position.z = 0.0;
+            move_base_goal.target_pose.pose.orientation.w = 1.0;
+            ROS_INFO("** Going to tvRoom");
+            goal_assigned = true;
+            location_count = 6;
+            break;
+
+            case 6:
+
+            move_base_goal.target_pose.header.frame_id = "map";
+            move_base_goal.target_pose.header.stamp = ros::Time::now();
+            move_base_goal.target_pose.pose.position.x = goto_location.bedRoom.pose.position.x;
+            move_base_goal.target_pose.pose.position.y = goto_location.bedRoom.pose.position.y;
+            //For now fixing the z and the heading//
+            move_base_goal.target_pose.pose.position.z = 0.0;
+            move_base_goal.target_pose.pose.orientation.w = 1.0;
+            ROS_INFO("** Going to bedRoom");
+            goal_assigned = true;
+            location_count = 0;
+            break;
+
+
+            default: 
+            ROS_INFO("** IDLE");
+            location_count = 0;      
+            break;
+
+
         }
     
         std::cout<<"X ------------------" << move_base_goal.target_pose.pose.position.x<<std::endl;
@@ -259,9 +231,8 @@ public:
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "GoTo_behav");
+    ros::init(argc, argv, "FallHaz_scan");
     
-
     ROS_INFO(" Enum: %d", RUNNING);
     ROS_INFO(" Send Goal Node Running");
     BTAction bt_action(ros::this_node::getName());

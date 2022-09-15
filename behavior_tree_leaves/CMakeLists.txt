@@ -513,4 +513,22 @@ add_dependencies(
   ${PROJECT_NAME}_generate_messages_cpp
   behavior_tree_core_generate_messages_cpp
 )
+
+add_executable(FallHaz_cmd example_nodes/cpp/demotree3/FallHaz_cmd.cpp)
+target_link_libraries(FallHaz_cmd  ${catkin_LIBRARIES})
+add_dependencies(
+  FallHaz_cmd
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
+
+add_executable(FallHaz_scan example_nodes/cpp/demotree3/FallHaz_scan.cpp)
+target_link_libraries(FallHaz_scan  ${catkin_LIBRARIES})
+add_dependencies(
+  FallHaz_scan
+  ${behavior_tree_leaves_EXPORTED_TARGETS}
+  ${PROJECT_NAME}_generate_messages_cpp
+  behavior_tree_core_generate_messages_cpp
+)
 ###--------------------------------------------------
