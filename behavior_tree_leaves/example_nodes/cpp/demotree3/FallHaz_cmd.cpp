@@ -33,6 +33,7 @@ protected:
     behavior_tree_core::BTResult result_;
     std_msgs::Int16 input_key;
     std_msgs::Int16 internal_comm_var;
+    bool fallhaz_msg = false;
 
 public:
     explicit BTAction(std::string name) :
@@ -50,14 +51,37 @@ public:
     { }
 
 
-    void conditionSetCallback(const std_msgs::Int16& msg)
+    void conditionSetCallback(const std_msgs::String::ConstPtr& msg)
     {    
-        input_key.data = msg.data;
+        std::string my_str = msg->data;
+        std::vector<std::string> result;
+        std::stringstream s_stream(my_str); //create string stream from the string
+
+        while(s_stream.good()) 
+        {
+            std::string substr;
+            getline(s_stream, substr, ','); //get first string delimited by comma
+            result.push_back(substr);
+        }
+        std::string fallhaz_string = result.at(1).c_str();
+
+        if(fallhaz_string == "fallhazard")
+        {
+            fallhaz_msg = true;
+            ROS_INFO("Fallhaz string True");
+            fallhaz_string = "";
+        }
+        else 
+        {
+            fallhaz_msg = false;
+            ROS_INFO("Fallhaz string False");
+            fallhaz_string = "";
+        }
     }
 
     void execute_callback(const behavior_tree_core::BTGoalConstPtr &goal)
     {
-        if (input_key.data ==8 )
+        if (fallhaz_msg == true)
         {
             set_status(FAILURE);
         }

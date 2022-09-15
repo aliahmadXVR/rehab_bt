@@ -84,9 +84,24 @@ public:
     ~BTAction(void)
     {}
 
-    void conditionSetCallback(const std_msgs::Int16& msg)
+    void conditionSetCallback(const std_msgs::String::ConstPtr& msg)
     {    
-        switch (msg.data)
+
+        std::string my_str = msg->data;
+        std::vector<std::string> result;
+        std::stringstream s_stream(my_str); //create string stream from the string
+
+        while(s_stream.good()) 
+        {
+            std::string substr;
+            getline(s_stream, substr, ','); //get first string delimited by comma
+            result.push_back(substr);
+        }
+        std::string goto_tag = result.at(4).c_str();
+        int loc_num = std::stoi(goto_tag);
+
+
+        switch (loc_num)
         {
             case 1:
 
