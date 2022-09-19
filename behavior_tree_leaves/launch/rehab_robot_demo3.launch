@@ -24,13 +24,13 @@
 
 <rosparam file="$(find behavior_tree_leaves)/params/location_XY_actual.yaml" />
 
-<node name="navCmd_d3"        pkg="behavior_tree_leaves"  type="navCmd_d3"          output="screen" />
-<node name="GoToKit_d3"       pkg="behavior_tree_leaves"  type="GoToKit_d3"         output="screen" /> 
-<node name="batteryOK"        pkg="behavior_tree_leaves"  type="batteryOK"          output="screen" /> 
-<node name="heyRuyi_cmd"      pkg="behavior_tree_leaves"  type="heyRuyi_cmd"        output="screen" />
-<node name="search_person"    pkg="behavior_tree_leaves"  type="search_person"      output="screen" />
-<node name="FallHaz_cmd"      pkg="behavior_tree_leaves"  type="FallHaz_cmd"        output="screen" />
-<node name="FallHaz_scan"     pkg="behavior_tree_leaves"  type="FallHaz_scan"       output="screen"  />
+<node name="GoTo_cmd"        pkg="behavior_tree_leaves"  type="GoTo_cmd"           output="screen" />
+<node name="GoTo_behav"      pkg="behavior_tree_leaves"  type="GoTo_behav"         output="screen" /> 
+<node name="batteryOK"       pkg="behavior_tree_leaves"  type="batteryOK"          output="screen" /> 
+<node name="heyRuyi_cmd"     pkg="behavior_tree_leaves"  type="heyRuyi_cmd"        output="screen" />
+<node name="search_person"   pkg="behavior_tree_leaves"  type="search_person"      output="screen" />
+<node name="FallHaz_cmd"     pkg="behavior_tree_leaves"  type="FallHaz_cmd"        output="screen" />
+<node name="FallHaz_scan"    pkg="behavior_tree_leaves"  type="FallHaz_scan"       output="screen" />
 
 </group>
 </launch>
