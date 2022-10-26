@@ -200,8 +200,8 @@ protected:
             if(publish_once == true)
             {
 
-                feedback_msg.data = "Finding Person";
-                pub_feedback.publish(feedback_msg);
+                // feedback_msg.data = "Finding Person";
+                //pub_feedback.publish(feedback_msg);
                 publish_once = false;
             }
             
@@ -213,8 +213,8 @@ protected:
                 ROS_INFO("Rotating & Finding person");
             }
             
-            feedback_msg.data = "Person Found";
-            pub_feedback.publish(feedback_msg);
+            // feedback_msg.data = "Person Found";
+            // pub_feedback.publish(feedback_msg);
             ROS_INFO("Person Found");
 
             ros::Duration(2.0).sleep();
@@ -236,16 +236,18 @@ protected:
                 ROS_INFO("**Sending Person Location goal 1, Person initially not in MAP");
                 ac.sendGoal(move_base_goal);
 
-                feedback_msg.data = "Goal Sent 1";
-                pub_feedback.publish(feedback_msg);
+                // feedback_msg.data = "Goal Sent 1";
+                // pub_feedback.publish(feedback_msg);
                 ac.waitForResult();
 
             }
             
+            feedback_msg.data = "Person Found";
+            pub_feedback.publish(feedback_msg);
             ROS_INFO("Goal Reached 1");
             ac.cancelGoal();
-            feedback_msg.data = "Goal Reached 1";
-            pub_feedback.publish(feedback_msg);
+            // feedback_msg.data = "Goal Reached 1";
+            // pub_feedback.publish(feedback_msg);
             set_status(SUCCESS);
             feedback_msg.data = "";
             publish_once = true;
@@ -272,7 +274,9 @@ protected:
                 std::cout<<"Y= "<<move_base_goal.target_pose.pose.position.y<<std::endl;
                 std::cout<<"Z= "<<move_base_goal.target_pose.pose.position.z<<std::endl;
 
-                feedback_msg.data = "Goal Sent 2";
+                // feedback_msg.data = "Goal Sent 2";
+                // pub_feedback.publish(feedback_msg);
+                feedback_msg.data = "Person Found";
                 pub_feedback.publish(feedback_msg);
                 set_status(SUCCESS);
                 feedback_msg.data = "";
